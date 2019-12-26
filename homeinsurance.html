@@ -1,0 +1,999 @@
+
+<!-- saved from url=(0041)https://leadbyts.com/portal/homeinsurance -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>[data-columns]::before{display:block;visibility:hidden;position:absolute;font-size:1px;}</style><style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style></head><body onload="startTime()" data-ma-theme="blue">
+
+
+    <script>
+
+    function startTime() {
+
+    var today = new Date();
+
+    var h = today.getHours();
+
+    var m = today.getMinutes();
+
+    var s = today.getSeconds();
+
+    m = checkTime(m);
+
+    s = checkTime(s);
+
+    document.getElementById('txt').innerHTML =
+
+    h + ":" + m + ":" + s;
+
+    var t = setTimeout(startTime, 500);
+
+    }
+
+    function checkTime(i) {
+
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+
+    return i;
+
+    }
+
+    </script>
+
+    
+
+	
+
+
+
+
+
+<link rel="shortcut icon" href="https://leadbyts.com/portal/favicon.ico" type="image/x-icon">
+
+<link rel="icon" href="https://leadbyts.com/portal/favicon.ico" type="image/x-icon">
+
+
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Vendor styles -->
+
+    <link rel="stylesheet" href="./homeinsurance_files/material-design-iconic-font.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/animate.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/jquery.scrollbar.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/fullcalendar.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/select2.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/dropzone.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/flatpickr.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/nouislider.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/bootstrap-colorpicker.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/trumbowyg.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/material-design-iconic-font.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/animate.min.css">
+
+    <link rel="stylesheet" href="./homeinsurance_files/jquery.scrollbar.css">
+
+    <!-- App styles -->
+
+    <link rel="stylesheet" href="./homeinsurance_files/app.min.css">
+
+    <!-- Demo only -->
+
+    <link rel="stylesheet" href="./homeinsurance_files/demo.css">
+
+    
+<title> homeinsurance </title>
+
+
+
+<title>Home Insurance</title>
+<style>
+.form-control{
+    border: 1px solid #707070;
+    border-radius: 2px;
+}
+</style>
+<main class="main">
+
+    <header class="header">
+    <div class="navigation-trigger hidden-xl-up" data-ma-action="aside-open" data-ma-target=".sidebar">
+    <div class="navigation-trigger__inner">
+    <i class="navigation-trigger__line"></i>
+    <i class="navigation-trigger__line"></i>
+    <i class="navigation-trigger__line"></i>
+    </div>
+    </div>
+    <div class="header__logo hidden-sm-down">
+        <h1><a href="https://leadbyts.com/portal/home">Welcome! Agent1</a></h1>
+        </div>
+    <ul class="top-nav">
+
+    <li class="hidden-xs-down">
+    <h5 style="color:#fff; font-size: 15px"> Center : MAULI ENTERPRISES  </h5>  
+    </li>
+    <!--<li class="dropdown hidden-xs-down">
+    <a href="" data-toggle="dropdown"><i class="zmdi zmdi-apps"></i></a>
+    <div class="dropdown-menu dropdown-menu-right dropdown-menu- -block" role="menu">
+    <div class="row app-shortcuts">
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-calendar bg-red"></i>
+    <small class="">Calendar</small>
+    </a>
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-file-text bg-blue"></i>
+    <small class="">Files</small>
+    </a>
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-email bg-teal"></i>
+    <small class="">Email</small>
+    </a>
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-trending-up bg-blue-grey"></i>
+    <small class="">Reports</small>
+    </a>
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-view-headline bg-orange"></i>
+    <small class="">News</small>
+    </a>
+    <a class="col-4 app-shortcuts__item" href="">
+    <i class="zmdi zmdi-image bg-light-green"></i>
+    <small class="">Gallery</small>
+    </a>
+    </div>
+    </div>
+    </li>-->
+    <li class="dropdown hidden-xs-down">
+    <a href="https://leadbyts.com/portal/homeinsurance" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
+    <div class="dropdown-menu dropdown-menu-right">
+    <a href="https://leadbyts.com/portal/logout" class="dropdown-item"><i class="zmdi zmdi-lock-outline zmdi-hc-fw"></i> Logout!</a>
+
+        </div>
+    </li>
+
+
+    <li class="hidden-xs-down">
+    <h5 style="color:#fff; font-size: 15px"><div id="txt">0:52:12</div></h5>  
+    </li>
+
+    </ul>
+
+    </header>
+
+        <aside class="sidebar">
+    <div class="scroll-wrapper scrollbar-inner" style="position: relative;"><div class="scrollbar-inner scroll-content" style="height: 480.5px; margin-bottom: 0px; margin-right: 0px; max-height: none;">
+    <div class="user">
+    <div class="user__info" data-toggle="dropdown">
+    <img class="user__img" src="./homeinsurance_files/8.jpg" alt="">
+    <div>
+    <div class="user__name">Agent1</div>
+    </div>
+    </div>
+    <div class="dropdown-menu">
+    <a class="dropdown-item" href="https://leadbyts.com/portal/homeinsurance"><i class="zmdi zmdi-account"></i> View Profile</a>
+    <a class="dropdown-item" href="https://leadbyts.com/portal/homeinsurance"><i class="zmdi zmdi-settings"></i> Settings</a>
+    <a class="dropdown-item" href="https://leadbyts.com/portal/logout"><i class="zmdi zmdi-lock"></i> Logout</a>
+    </div>
+    </div>
+    <ul class="navigation">
+        <li class="navigation__active"><a href="https://leadbyts.com/portal/user"><i class="zmdi zmdi-home"></i> Home</a></li>
+       <li class="navigation__sub">
+    <a href="https://leadbyts.com/portal/homeinsurance"><i class="zmdi zmdi-account"></i>Insurance</a>
+        <ul> 
+        <li><a href="https://leadbyts.com/portal/homeinsurance"><i class="zmdi zmdi-account-add"></i> Home Insurance</a></li>
+        </ul>
+        </li>
+            </ul>
+    </div><div class="scroll-element scroll-x" style=""><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="width: 100px;"></div></div></div><div class="scroll-element scroll-y" style=""><div class="scroll-element_outer"><div class="scroll-element_size"></div><div class="scroll-element_track"></div><div class="scroll-bar" style="height: 99px;"></div></div></div></div>
+    </aside>
+    
+<section class="content">
+
+
+<div class="content__inner">
+
+<div class="card">
+<div class="card-header">
+</div>
+<div class="card-header">
+
+<center>   <h2 class="card-title" style="color:green;">Home Insurance</h2>
+
+<small class="card-subtitle"> All fields are mandatory </small> </center>
+
+<h5 class="card-title"> Home Insurance </h5> 
+
+</div> 
+
+<form method="post" autocomplete="on">   
+
+<div class="card-block">
+
+<div class="row"> 
+
+<div class="col-sm-3">
+
+<div class="form-group">
+
+<label>Property Type </label>
+
+<select name="property_type" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="Single family">Single family</option>
+
+<option value="Apartment">Apartment</option>
+
+<option value="Duplex">Duplex</option>
+
+<option value="Condo">Condo</option>
+
+<option value="Townhome">Townhome</option>
+
+<option value="Mobile home">Mobile home</option> 
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Do you live here?</label> <br>
+
+
+
+<label>
+
+<input type="radio" name="is_live" value="1" id="option2" autocomplete="off" checked=""> Yes
+
+</label>
+
+<label>
+
+<input type="radio" name="is_live" value="0" id="option3" autocomplete="off"> No
+
+</label>
+
+
+
+</div>
+
+<div class="form-group">
+
+<label>Bathrooms: </label>
+
+<select name="bathrooms" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="1">1</option>
+
+<!--<option value="1.5">1.5</option>-->
+
+<option value="2">2</option>
+
+<!--<option value="2.5">2.5</option>-->
+
+<option value="3">3</option>
+
+<!--<option value="3.5">3.5</option>-->
+
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+
+<option value="6+">6+</option>
+
+
+
+</select>
+
+</div>
+
+</div>  <!-- 1 -->
+
+
+
+<div class="col-sm-3">
+
+<div class="form-group">
+
+<label>Year built(ok to estimate): </label>
+
+<select name="year_built" class="form-control">
+<option value=" "> --select-- </option> 
+
+<option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option><option value="1927">1927</option><option value="1926">1926</option><option value="1925">1925</option><option value="1924">1924</option><option value="1923">1923</option><option value="1922">1922</option><option value="1921">1921</option><option value="1920">1920</option><option value="1919">1919</option><option value="1918">1918</option><option value="1917">1917</option><option value="1916">1916</option><option value="1915">1915</option><option value="1914">1914</option><option value="1913">1913</option><option value="1912">1912</option><option value="1911">1911</option><option value="1910">1910</option><option value="1909">1909</option><option value="1908">1908</option><option value="1907">1907</option><option value="1906">1906</option><option value="1905">1905</option><option value="1904">1904</option><option value="1903">1903</option><option value="1902">1902</option><option value="1901">1901</option><option value="1900">1900</option>
+</select>
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+<label>Age Of Roof?</label>
+
+<select name="age_of_roof" class="form-control">
+
+<option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="115">115</option><option value="116">116</option><option value="117">117</option><option value="118">118</option><option value="119">119</option><option value="120">120</option><option value="121">121</option><option value="122">122</option><option value="123">123</option><option value="124">124</option><option value="125">125</option>
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Garage:</label>
+
+<select name="garage" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="Attached carpool">Attached Carpool</option>
+
+<!--<option value="Attached 2 car">Attached 2 car</option>-->
+
+<!--<option value="Attached 3 car">Attached 3 car</option>-->
+
+<!--<option value="Attached carpool">Attached carpool</option>-->
+
+<!--<option value="Detached 1 car">Detached 1 car</option>-->
+
+<!--<option value="Detached 2 car">Detached 2 car</option>-->
+
+<!--<option value="Detached 3 car">Detached 3 car</option>-->
+
+<option value="Detached carpool">Detached Carpool</option>
+
+<option value="No garage">No Garage</option>
+
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+
+</div>	 <!-- 2 -->
+
+<div class="col-sm-3">
+
+<div class="form-group">
+
+<label>Approx. Sq. Footage: </label>
+
+<select name="sq_footage" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="1000">&lt; 1000 sq.ft</option>
+
+<option value="1500">1000 – 2000 sq.ft</option>
+
+<option value="2500">2001 – 3000 sq.ft</option>
+
+<option value="3500">3001 – 4000 sq.ft</option>
+
+<option value="4500">4001 – 5000 sq.ft</option>
+
+<option value="5000">5000+ sq.ft</option>
+
+</select>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Stories: </label>
+
+<select name="stories" required="true" class="form-control" onchange="Validate()">
+
+<option value=" "> --select-- </option> 
+
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="5+">5+</option>
+
+
+<!--<option value="One story">One story</option>-->
+
+<!--<option value="Bi level">Bi level</option>-->
+
+<!--<option value="Two story">Two story</option>-->
+
+<!--<option value="Tri level">Tri level</option>-->
+
+<!--<option value="Other">Other</option>-->
+
+</select>
+
+</div>
+
+
+
+</div> <!-- 3 -->
+
+
+
+<div class="col-sm-3">
+
+<div class="form-group">
+
+<label>Owned or Rented</label> <br>
+
+<select name="is_owned" required="true" class="form-control">
+<option value=" "> --select-- </option> 
+<option value="Owned">Owned</option>
+<option value="Rented">Rented</option>
+
+</select>
+</div>
+
+
+
+<div class="form-group">
+
+<label>Bedrooms: </label>
+
+<select name="bedrooms" class="form-control">
+<option value=" "> --select-- </option> 
+
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="6+">6+</option>
+</select>
+
+</div>
+
+</div>  <!-- 4 -->
+
+
+
+</div>  <!-- 1 row end  -->
+
+<hr>
+
+
+
+
+
+<div class="row">
+    
+    
+    <div class="col-sm-3"> 
+<div class="form-group">
+<label>Additional Coverage</label>
+<select name="additional_coverage" required="true" class="form-control">
+<option value=" "> --select-- </option> 
+<option value="Dwelling Coverage">Dwelling Coverage</option>
+<option value="Contents Coverage">Contents Coverage</option>
+<option value="Personal Liability">personal Liability</option>
+</select>
+</div>
+</div>
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Coverage Terms</label>
+
+<select name="coverage_term" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="5 Years">5 Years</option>
+<option value="10 Years">10 Years</option>
+<option value="15 Years">15 Years</option>
+<option value="20 Years">20 Years</option>
+<option value="25 Years">25 Years</option>
+<option value="30 Years">30 Years</option>
+
+</select>
+</div>
+</div>
+
+<div class="col-sm-3">
+
+<div class="form-group">
+
+<label>Desired Coverage Amount: </label>
+
+<select name="desired_coverage_amount" required="true" class="form-control">
+<option value=" "> --select-- </option> 
+<option value="150000">$150000</option>
+<option value="300000">$300000</option>
+<option value="500000">$500000</option>
+<option value="750000">$750000</option>   
+<option value="1000000">$1000000</option>   
+<option value="1500000">$1500000</option>   
+<option value="none">None</option>
+
+
+<!--<option value="40000">&lt; $50,000</option>-->
+<!--<option value="50000">$50,000</option>-->
+<!--<option value="100000">$100,000</option>-->
+
+<!--<option value="200000">$200,000</option>-->
+
+<!--<option value="250000">$250,000</option>-->
+
+<!--<option value="300000">$300,000</option>-->
+
+<!--<option value="350000">$350,000</option>-->
+
+<!--<option value="400000">$400,000</option>-->
+
+<!--<option value="450000">$450,000</option>-->
+
+   
+
+</select>
+
+</div>
+
+
+
+</div> <!-- 1 -->
+
+
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Desired Deductible:</label>
+
+<select name="desired_deductible" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="250">250</option>
+<option value="500">500</option>
+<option value="750">750</option>
+<option value="1,000">1,000</option>
+<option value="12,50">12,50</option>
+<option value="15,00">15,00</option>
+<option value="2,000">2,000</option>
+
+</select>
+
+</div>
+
+</div> <!-- 2 -->
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Desired Liability Coverage:</label>
+
+<select name="desired_liability_coverage" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="50,000">$50,000 </option>
+<option value="100,000">$100,000 </option>
+<option value="200,000">$200,000 </option>
+<option value="300,000">$300,000 </option>
+<option value="500,000">$500,000 </option>
+<option value="750,000">$750,000 </option>
+<option value="750,000+">$750,000+ </option>
+<option value="none">none</option>
+
+<!--<option value="300,000" selected="">300,000</option>-->
+<!--<option value="1,000,000">1,000,000</option>-->
+
+</select>
+
+</div> 
+
+</div> <!-- 3 -->
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Are you currently insured?</label> 
+
+<select name="is_insured" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="Currently not insured">Currently not insured</option>
+
+<option value="21st Century Insurance">21st Century Insurance</option><option value="AARP">AARP</option><option value="ACE Limited">ACE Limited</option><option value="Acuity">Acuity</option><option value="Elephant.com">Elephant.com</option><option value="Admiral Life Insurance">Admiral Life Insurance</option><option value="Aetna">Aetna</option><option value="Aetna for life">Aetna for life</option><option value="Affirmative Insurance">Affirmative Insurance</option><option value="Aflac">Aflac</option><option value="Alleghany Corporation">Alleghany Corporation</option><option value="Allied Insurance">Allied Insurance</option><option value="Alfa">Alfa</option><option value="Allstate">Allstate</option><option value="American Automobile Association (AAA)">American Automobile Association (AAA)</option><option value="American Family Insurance">American Family Insurance</option><option value="American Income Life Insurance Company">American Income Life Insurance Company</option><option value="American International Group (AIG)">American International Group (AIG)</option><option value="American National Insurance Company">American National Insurance Company</option><option value="American Strategic Insurance (ASI)">American Strategic Insurance (ASI)</option><option value="American Tri-Star Insurance Services">American Tri-Star Insurance Services</option><option value="Ameritas Life Insurance Company">Ameritas Life Insurance Company</option><option value="AMERICUS INSURANCE">AMERICUS INSURANCE</option><option value="Amica Mutual Insurance">Amica Mutual Insurance</option><option value="Amtrust Financial Services">Amtrust Financial Services</option><option value="Andy Insurance">Andy Insurance</option><option value="Applied Underwriters">Applied Underwriters</option><option value="Arbella Insurance Group">Arbella Insurance Group</option><option value="Assurity Life Insurance Company">Assurity Life Insurance Company</option><option value="Auto-Owners Insurance">Auto-Owners Insurance</option><option value="AXA Equitable Life Insurance Company">AXA Equitable Life Insurance Company</option><option value="Azimuth risk solutions">Azimuth risk solutions</option><option value="Bankers Life and Casualty Company">Bankers Life and Casualty Company</option><option value="Bankers Insurance Group">Bankers Insurance Group</option><option value="Berkshire Hathaway">Berkshire Hathaway</option><option value="Blue Advantage">Blue Advantage</option><option value="Brotherhood Mutual Insurance Company">Brotherhood Mutual Insurance Company</option><option value="CareSource">CareSource</option><option value="Central Insurance Companies">Central Insurance Companies</option><option value="Champ VA">Champ VA</option><option value="Chappell Insurance Services">Chappell Insurance Services</option><option value="Chubb Corp">Chubb Corp</option><option value="Cigna Health Spring">Cigna Health Spring</option><option value="Cincinnati Insurance Company">Cincinnati Insurance Company</option><option value="Civil Service Employees">Civil Service Employees</option><option value="CNA Financial">CNA Financial</option><option value="CNO Financial Group">CNO Financial Group</option><option value="Colonial Life &amp; Accident Insurance Company">Colonial Life &amp; Accident Insurance Company</option><option value="Combined Insurance">Combined Insurance</option><option value="Commerce Insurance Group">Commerce Insurance Group</option><option value="Country Financial">Country Financial</option><option value="Country-Wide Insurance Company">Country-Wide Insurance Company</option><option value="Delta Dental">Delta Dental</option><option value="Elephant Auto Insurance">Elephant Auto Insurance</option><option value="Encompass Insurance Company">Encompass Insurance Company</option><option value="Erie Insurance Group">Erie Insurance Group</option><option value="Esurance">Esurance</option><option value="Evergreen USA RRG">Evergreen USA RRG</option><option value="Farmers Insurance Group">Farmers Insurance Group</option><option value="Federal Life Insurance Company">Federal Life Insurance Company</option><option value="Federated Mutual Insurance Company">Federated Mutual Insurance Company</option><option value="First Insurance Company of Hawaii">First Insurance Company of Hawaii</option><option value="FM Global">FM Global</option><option value="GAINSCO">GAINSCO</option><option value="GEICO">GEICO</option><option value="General Re">General Re</option><option value="Genworth Financial">Genworth Financial</option><option value="Gerber Life Insurance Company">Gerber Life Insurance Company</option><option value="Globe Life And Accident Insurance Company">Globe Life And Accident Insurance Company</option><option value="GMAC Insurance">GMAC Insurance</option><option value="Gracy Title Company">Gracy Title Company</option><option value="Grange Mutual Casualty Company">Grange Mutual Casualty Company</option><option value="The Guardian Life Insurance Company of America">The Guardian Life Insurance Company of America</option><option value="GuideOne Insurance">GuideOne Insurance</option><option value="Hanover Insurance">Hanover Insurance</option><option value="The Hartford">The Hartford</option><option value="HCC Insurance Holdings">HCC Insurance Holdings</option><option value="Hiscox Small Business Insurance">Hiscox Small Business Insurance</option><option value="Horace Mann Educators Corporation">Horace Mann Educators Corporation</option><option value="Homeowners Choice Property &amp; Casualty Insurance Inc.,">Homeowners Choice Property &amp; Casualty Insurance Inc.,</option><option value="Inaam Abbasi Insurance Company (IAIC)">Inaam Abbasi Insurance Company (IAIC)</option><option value="Infinity Property &amp; Casualty Corporation">Infinity Property &amp; Casualty Corporation</option><option value="Insurance Panda">Insurance Panda</option><option value="InsureScan">InsureScan</option><option value="IntelliQuote Insurance Services">IntelliQuote Insurance Services</option><option value="Ironshore">Ironshore</option><option value="Jackson National Life">Jackson National Life</option><option value="John Hancock Insurance">John Hancock Insurance</option><option value="K&amp;K Insurance">K&amp;K Insurance</option><option value="Kansas City Life Insurance Company">Kansas City Life Insurance Company</option><option value="Kentucky Farm Bureau">Kentucky Farm Bureau</option><option value="Knights of Columbus">Knights of Columbus</option><option value="Lemonade (insurance)">Lemonade (insurance)</option><option value="Liberty Mutual">Liberty Mutual</option><option value="Lincoln National Corporation">Lincoln National Corporation</option><option value="Manhattan Life Insurance Company">Manhattan Life Insurance Company</option><option value="Markel Corporation">Markel Corporation</option><option value="MassMutual">MassMutual</option><option value="Mass Health Insurance">Mass Health Insurance</option><option value="MBBS ( Mohtarma Bainzeer Bhutto Shaheed )">MBBS ( Mohtarma Bainzeer Bhutto Shaheed )</option><option value="Merchants Insurance Group">Merchants Insurance Group</option><option value="Mercury Insurance Group">Mercury Insurance Group</option><option value="MetLife">MetLife</option><option value="MMG Insurance">MMG Insurance</option><option value="Modern Woodmen of America">Modern Woodmen of America</option><option value="Mutual of Omaha">Mutual of Omaha</option><option value="National Life">National Life</option><option value="Nationwide Mutual Insurance Company">Nationwide Mutual Insurance Company</option><option value="New Jersey Manufacturers Insurance Company">New Jersey Manufacturers Insurance Company</option><option value="New York Life Insurance Company">New York Life Insurance Company</option><option value="The Norfolk &amp; Dedham Group">The Norfolk &amp; Dedham Group</option><option value="Northwestern Mutual">Northwestern Mutual</option><option value="Ohio National Financial Services">Ohio National Financial Services</option><option value="Omega">Omega</option><option value="OneBeacon">OneBeacon</option><option value="Oxford Health Plans">Oxford Health Plans</option><option value="Pacific Life">Pacific Life</option><option value="Pacificare">Pacificare</option><option value="PEMCO">PEMCO</option><option value="Penn Mutual">Penn Mutual</option><option value="Philadelphia Contributionship for the Insurance of Houses from Loss by Fire">Philadelphia Contributionship for the Insurance of Houses from Loss by Fire</option><option value="Philadelphia Insurance Companies">Philadelphia Insurance Companies</option><option value="Physicians Mutual">Physicians Mutual</option><option value="Primerica">Primerica</option><option value="Principal Financial Group">Principal Financial Group</option><option value="Progressive">Progressive</option><option value="ProSight Specialty Insurance">ProSight Specialty Insurance</option><option value="Protective Life">Protective Life</option><option value="Prudential Financial">Prudential Financial</option><option value="Pure Insurance">Pure Insurance</option><option value="QBE">QBE</option><option value="The Regence Group">The Regence Group</option><option value="Reliance Insurance Company">Reliance Insurance Company</option><option value="RLI Corp.">RLI Corp.</option><option value="Safe Auto Insurance Company">Safe Auto Insurance Company</option><option value="Safeco">Safeco</option><option value="Safeway Insurance Group">Safeway Insurance Group</option><option value="Securian Financial Group">Securian Financial Group</option><option value="Selective Insurance">Selective Insurance</option><option value="Sentry Insurance">Sentry Insurance</option><option value="Shelter Insurance">Shelter Insurance</option><option value="Southern Aid and Insurance Company">Southern Aid and Insurance Company</option><option value="Southern Farm Bureau Life Insurance Company">Southern Farm Bureau Life Insurance Company</option><option value="Standard Insurance Company">Standard Insurance Company</option><option value="State Auto Insurance Company">State Auto Insurance Company</option><option value="State Farm Insurance">State Farm Insurance</option><option value="Stillwater Insurance Group">Stillwater Insurance Group</option><option value="Sun Life Financial">Sun Life Financial</option><option value="Symetra">Symetra</option><option value="TIAA-CREF">TIAA-CREF</option><option value="Transamerica Corporation">Transamerica Corporation</option><option value="The Producer&#39;s Group">The Producer's Group</option><option value="The Travelers Companies">The Travelers Companies</option><option value="Tricare">Tricare</option><option value="Tricare For Life">Tricare For Life</option><option value="TriWest">TriWest</option><option value="Trupanion">Trupanion</option><option value="Unum">Unum</option><option value="USAA">USAA</option><option value="US Health Group">US Health Group</option><option value="Vantage Health Plan">Vantage Health Plan</option><option value="Veteran Affairs">Veteran Affairs</option><option value="Wellmed Healthcare Insurance">Wellmed Healthcare Insurance</option><option value="West Bend Mutual Insurance">West Bend Mutual Insurance</option><option value="West Coast Life">West Coast Life</option><option value="Western &amp; Southern Financial Group">Western &amp; Southern Financial Group</option><option value="Western Mutual Insurance Group">Western Mutual Insurance Group</option><option value="Westfield Insurance">Westfield Insurance</option><option value="Westminster American Insurance Company">Westminster American Insurance Company</option><option value="White Mountains Insurance Group">White Mountains Insurance Group</option><option value="XL Catlin">XL Catlin</option>
+</select>
+
+</div>
+
+</div> <!-- 4 -->
+
+</div> <!-- 2 row end -->
+
+
+
+<div class="row"> 
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Credit Rating</label>
+
+<select name="credit_rating" required="true" class="form-control">
+
+<option value=" "> --select-- </option> 
+
+<option value="Excellent">Excellent</option>
+
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Poor">Poor</option>
+
+<!--<option value="Some Problems">Some Problems</option>-->
+
+<!--<option value="Major Problems">Major Problems</option>      -->
+
+</select>
+
+</div>
+
+</div>  <!-- 1 -->
+
+
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Filed Any Claimes in the last 3 years?</label> <br>
+
+
+
+<label>
+
+<input type="radio" name="is_claim_3_years" value="1" id="option2" autocomplete="off" checked=""> Yes
+
+</label>
+
+<label>
+
+<input type="radio" name="is_claim_3_years" value="0" id="option3" autocomplete="off"> No
+
+</label>
+
+
+
+</div>
+
+</div> <!-- 2 -->
+
+
+
+</div> <!-- 3 row complete -->
+
+<hr>
+
+<div class="row"> 
+
+<div class="col-sm-3"> 
+    <div class="form-group">
+        <label>Title</label> <br>
+        <!--<select name="title" required="true" class="form-control" >-->
+        <!--<option value=" "> --select-- </option> -->
+        <!--<option value="Mr">Mr</option>-->
+        <!--<option value="Mrs">Mrs</option>-->
+        <!--<option value="Ms">Ms</option>-->
+        <!--</select>-->
+                <input type="text" class="form-control" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" name="title" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="true" placeholder="Eg - Mr,Mrs,Ms"> <i class="form-group__bar"></i>
+
+    </div>
+    
+    <div class="form-group">
+
+<label>Blood Group</label>
+
+<!-- <input type="text" class="form-control"  required="" name="blood_group" placeholder="Enter Blood Group" />  -->
+<input type="text" class="form-control" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" name="blood_group" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="true" placeholder="Enter Blood Group">
+
+<!--<select name="blood_group" required="true" class="form-control">-->
+
+<!--<option value=" "> --select-- </option> -->
+<!--<option value="A Postive" >A Postive</option>-->
+<!--<option value="B Postive" >B Postive</option>-->
+<!--<option value="A Negative" >A Negative</option>-->
+<!--<option value="B Negative" >B Negative</option>-->
+<!--<option value="AB Postive" >AB Postive</option>-->
+<!--<option value="AB Negative" >AB Negative</option>-->
+<!--<option value="O Postive" >O Postive</option>-->
+<!--<option value="O Negative" >O Negative</option>-->
+<!--</select> -->
+
+</div>
+</div>
+
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>First Name</label>
+
+<input type="text" class="form-control" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="" name="first_name" placeholder="Enter first name"> <i class="form-group__bar"></i>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Address</label>
+
+<textarea class="form-control textarea-autosize" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="" name="address" placeholder="Enter Address Here..." style="overflow: hidden; overflow-wrap: break-word; height: 50px;"></textarea>
+
+<i class="form-group__bar"></i>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+
+<label>Last Name</label>
+
+<input type="text" class="form-control" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="" name="last_name" placeholder="Enter last name"> 
+
+<i class="form-group__bar"></i>
+
+</div> 
+
+<div class="form-group">
+
+<label>Zip code</label>
+
+<input type="text" class="form-control input-mask" autocomplete="off" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" required="" data-mask="000000" name="zip_code" placeholder="Enter zipcode" maxlength="6"> <i class="form-group__bar"></i>
+
+</div> 
+
+
+
+</div>
+
+<div class="col-sm-3"> 
+
+	<div class="form-group">
+
+<label>Gender</label> <br>
+
+
+
+<label>
+
+<input type="radio" name="gender" value="1" id="option2" autocomplete="off" checked=""> Male
+
+</label>
+
+<label>
+
+<input type="radio" name="gender" value="0" id="option3" autocomplete="off"> Female
+
+</label>
+
+
+
+</div>
+
+<div class="form-group">
+
+<label>Phone</label>
+
+<input type="text" class="form-control input-mask" autocomplete="off" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" data-mask="0000000000" name="phone" placeholder="Enter Phone no... " maxlength="10"> <i class="form-group__bar"></i>
+
+</div>
+
+
+
+</div>
+
+<div class="col-sm-3"> 
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email" class="form-control" autocomplete="false" onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==86){return false;}" onselectstart="return false" onpaste="return false;" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" name="emailid" placeholder="Enter emailid"> <i class="form-group__bar"></i>
+
+</div>
+
+</div>
+
+<div class="col-sm-3"> 
+
+<div class="form-group">
+<label>Date of Birth</label>
+<div class="row">
+<div class="col-md-4">
+<select name="month" required="true" class="form-control">
+<option value="">MM</option> 
+<option value="01">Jan</option>
+<option value="02">Feb</option>
+<option value="03">Mar</option>
+<option value="04">Apr</option>  
+<option value="05">May</option> 
+<option value="06">Jun</option>
+<option value="07">Jul</option>
+<option value="08">Aug</option>
+<option value="09">Sep</option>
+<option value="10">Oct</option>
+<option value="11">Nov</option>
+<option value="12">Dec</option>           
+</select>
+</div>
+<div class="col-md-4"> 
+<select name="day" required="true" class="form-control">
+<option value="">DD</option> 
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>      
+</select>
+</div>
+<div class="col-md-4"> 
+<select name="year" required="true" class="form-control">
+<option value="">YYYY</option> 
+<option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option></select>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-sm-3"> 
+    <div class="form-group">
+        <label>Age</label> <br>
+        <select name="age" required="true" class="form-control">
+        <option value=" "> --select-- </option> 
+        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option>        </select>
+    </div>
+</div>
+
+<div class="col-sm-3"> 
+
+
+</div>
+
+
+
+
+
+</div> 
+
+
+
+<div class="row"> 
+
+<div class="col-sm-8">
+
+<!--<p style="text-align: justify; font-size: 10px;">By clicking Get My Quotes, I agree to the <a href="https://www.bestquotes.com/terms-and-conditions/" target="_blank">Terms of Service </a/>and Privacy Policy and authorize 
+
+    <a href="https://www.bestquotes.com/insurance-center/home/home-companies/" target="_blank"> insurance companies </a>, their agents and marketing partners to contact me about home insurance and other non-insurance offers by telephone calls and text messages to the number I provided above. I agree to receive telemarketing calls and pre-recorded messages via an autodialed phone system, even if my telephone number is a mobile number that is currently listed on any state, federal or corporate "Do Not Call" list. I understand that my consent is not a condition of purchase of any goods or services and that standard message and data rates may apply.</p>-->
+
+</div>
+
+<div class="col-sm-4"> 
+
+<center><button type="submit" name="btn_submit" class="btn btn-outline-success btn-lg waves-effect">Submit</button></center>
+
+</div>
+
+</div>
+
+<br> <br>
+
+<div class="row">
+
+<div class="col-sm-12"> 
+
+<!--<p style="text-align: justify; font-size: 10px;">By submitting my information I agree to the<a href="https://www.bestquotes.com/privacy-policy/" target="_blank"> Privacy Policy</a> and <a href="https://www.bestquotes.com/terms-and-conditions/" target="_blank"> Terms and Conditions </a> of this website and agree to be bound by them. I acknowledge that I am seeking a quote request, which I authorize and agree that up to eight insurance companies, their agents and partner companies may use the information I provided to contact me or to obtain additional information. I authorize this website, insurance companies or their agents that receive my insurance quote request from this website, or its partner companies, to confirm my information through the use of a consumer report. None of the listed companies sponsor, endorse or are in any way affiliated to this website.</p>-->
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</form></div>
+
+
+
+</div>
+
+
+
+</section>
+
+</main>
+
+<!-- Vendors -->
+    <script src="./homeinsurance_files/jquery.min.js"></script>
+    <script src="./homeinsurance_files/popper.min.js"></script>
+    <script src="./homeinsurance_files/tether.min.js"></script>
+    <script src="./homeinsurance_files/bootstrap.min.js"></script>
+    <script src="./homeinsurance_files/waves.min.js"></script>
+    <script src="./homeinsurance_files/jquery.scrollbar.min.js"></script>
+    <script src="./homeinsurance_files/jquery-scrollLock.min.js"></script>
+    <script src="./homeinsurance_files/autosize.min.js"></script>
+    <script src="./homeinsurance_files/waves.min.js"></script>
+    <script src="./homeinsurance_files/jquery.flot.js"></script>
+    <script src="./homeinsurance_files/jquery.flot.resize.js"></script>
+    <script src="./homeinsurance_files/jquery.vmap.min.js"></script>
+    <script src="./homeinsurance_files/jquery.vmap.world.js"></script>
+    <script src="./homeinsurance_files/jquery.easypiechart.min.js">
+    </script>
+    <script src="./homeinsurance_files/salvattore.min.js"></script>
+    <script src="./homeinsurance_files/jquery.sparkline.min.js"></script>
+    <script src="./homeinsurance_files/moment.min.js"></script>
+    <script src="./homeinsurance_files/fullcalendar.min.js"></script>
+    <script src="./homeinsurance_files/jquery.mask.min.js"></script>
+    <script src="./homeinsurance_files/select2.full.min.js"></script>
+    <script src="./homeinsurance_files/dropzone.min.js"></script>
+    <script src="./homeinsurance_files/flatpickr.min.js"></script>
+    <script src="./homeinsurance_files/nouislider.min.js"></script>
+    <script src="./homeinsurance_files/bootstrap-colorpicker.min.js">
+    </script>
+    <script src="./homeinsurance_files/trumbowyg.min.js"></script>
+    <script src="./homeinsurance_files/jquery.dataTables.min.js"></script>
+    <script src="./homeinsurance_files/dataTables.buttons.min.js"></script>
+    <script src="./homeinsurance_files/buttons.print.min.js"></script>
+    <script src="./homeinsurance_files/jszip.min.js"></script>
+    <script src="./homeinsurance_files/buttons.html5.min.js"></script>
+    <!-- -->
+    <!-- App functions and actions -->
+    <script src="./homeinsurance_files/app.min.js"></script>
+
+       
+
+     
+
+<script type="text/javascript"> 
+
+$(document).ready(function(){
+
+$(document).on("click",".login-button",function(){
+
+var form = $(this).closest("form");
+
+console.log(form);
+
+form.submit();
+
+});
+
+});
+
+</script>
+
+
+
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div></body></html>

@@ -1,0 +1,18 @@
+{
+   "manifest_version":2,
+   "name":"Autofill Forms Insurance",
+   "description":"This extension use to fill insurance form automatically.",
+   "version":"0.1",
+   "content_scripts":[
+      {
+         "matches":["file:///home/vinayak/Desktop/jitesh/insurance/homeinsurance.html"],
+         "js":["content.js","stringmanipulation.js"]
+      }
+   ],
+  "permissions": ["tabs"],
+  "browser_action":{
+      "default_icon":"logo.png",
+      "default_popup":"popup.html",
+      "default_title": "fillup form"
+   }
+}
