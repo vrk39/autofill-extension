@@ -1,7 +1,8 @@
 $(function(){
 document.getElementById("fill").addEventListener("click", sendMessages);
-var oFileIn = document.getElementById('my_file_input').addEventListener('change', filePicked, false);
+document.getElementById('fileUpload').addEventListener('change', Upload, false);
 });
+
 
 function sendMessages(){
 
@@ -54,48 +55,127 @@ function sendMessages(){
 
 }
 
-function filePicked(oEvent) {
-    // Get The File From The Input
-    var oFile = oEvent.target.files[0];
-    var sFilename = oFile.name;
-    // Create A File Reader HTML5
-    var reader = new FileReader();
-    
-    // Ready The Event For When A File Gets Selected
-    reader.onload = function(e) {
-        var data = e.target.result;
-        var cfb = XLS.CFB.read(data, {type: 'binary'});
-        var wb = XLS.parse_xlscfb(cfb);
-        // Loop Over Each Sheet
-        wb.SheetNames.forEach(function(sheetName) {
-            // Obtain The Current Row As CSV
-            var sCSV = XLS.utils.make_csv(wb.Sheets[sheetName]);   
-            var data = XLS.utils.sheet_to_json(wb.Sheets[sheetName], {header:1});   
-			    
-		for(let rowIndex=0 ; rowIndex < data.length ; rowIndex++){
-                        var sRow = "<tr>";
-			var columns = data[rowIndex];
-			for(let columnIndex = 0 ; columnIndex < columns.length ;columnIndex++){
-				var columnData = columns[columnIndex];
-				sRow = sRow + "<td>" + columnData + "</td>";
-			}
-			sRow = sRow + "</tr>";
-			document.getElementById('my_file_output').append(sRow);
-		}
+function readFile(){
+	var file = this.files;
+	var reader = new FileReader();
+	reader.onload = readSuccess;
+	function readSuccess(evt){
+		var field = document.getElementById('main');
+		field.innerHTML = evt.target.result;
+	}
+	reader.readAsText(file);
+}
 
-            /*$.each(data, function( indexR, valueR ) {
-                var sRow = "<tr>";
-                $.each(data[indexR], function( indexC, valueC ) {
-                    sRow = sRow + "<td>" + valueC + "</td>";
-                });
-                sRow = sRow + "</tr>";
-                $("#my_file_output").append(sRow);
-            });*/
-        });
-    };
-    
-    // Tell JS To Start Reading The File.. You could delay this if desired
-    reader.readAsBinaryString(oFile);
+function Upload(evt) {
+	//Reference the FileUpload element.
+	//var fileUpload = document.getElementById("fileUpload");
+	const fileUpload = this.files;
+	var files = evt.target.files;
+
+	for (var i = 0, len = files.length; i < len; i++) {
+        var file = files[i];
+
+        var reader = new FileReader();
+
+        reader.onload = (function(f) {
+            return function(e) {
+                // Here you can use `e.target.result` or `this.result`
+				// and `f.name`.
+				var field = document.getElementById('main');
+				field.innerHTML = evt.target.result;
+            };
+        })(file);
+
+        reader.readAsText(file);
+    }
+
+	//Validate whether File is valid Excel file.
+	/*var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
+	//if (regex.test(fileUpload.value.toLowerCase())) {
+		if (typeof (FileReader) != "undefined") {
+			var reader = new FileReader();
+			
+			//For Browsers other than IE.
+			if (reader.readAsBinaryString) {
+				reader.onload = (function(f) {
+					return function(e) {
+						// Here you can use `e.target.result` or `this.result`
+						// and `f.name`.
+						ProcessExcel(e.target.result);
+					};
+					
+				})(file);
+				reader.readAsBinaryString(fileUpload.files[0]);
+			} else {
+				//For IE Browser.
+				reader.onload = function (e) {
+					var data = "";
+					var bytes = new Uint8Array(e.target.result);
+					for (var i = 0; i < bytes.byteLength; i++) {
+						data += String.fromCharCode(bytes[i]);
+					}
+					ProcessExcel(data);
+				};
+				reader.readAsArrayBuffer(fileUpload.files[0]);
+			}
+		} else {
+			alert("This browser does not support HTML5.");
+		}*/
+	//} else {
+	//	alert("Please upload a valid Excel file.");
+	//}
+}
+function ProcessExcel(data) {
+	//Read the Excel File data.
+	var workbook = XLSX.read(data, {
+		type: 'binary'
+	});
+
+	//Fetch the name of First Sheet.
+	var firstSheet = workbook.SheetNames[0];
+
+	//Read all rows from First Sheet into an JSON array.
+	var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+
+	//Create a HTML Table element.
+	var table = document.createElement("table");
+	table.border = "1";
+
+	//Add the header row.
+	var row = table.insertRow(-1);
+
+	//Add the header cells.
+	var headerCell = document.createElement("TH");
+	headerCell.innerHTML = "Id";
+	row.appendChild(headerCell);
+
+	headerCell = document.createElement("TH");
+	headerCell.innerHTML = "Name";
+	row.appendChild(headerCell);
+
+	headerCell = document.createElement("TH");
+	headerCell.innerHTML = "Country";
+	row.appendChild(headerCell);
+
+	//Add the data rows from Excel file.
+	for (var i = 0; i < excelRows.length; i++) {
+		//Add the data row.
+		var row = table.insertRow(-1);
+
+		//Add the data cells.
+		var cell = row.insertCell(-1);
+		cell.innerHTML = excelRows[i].Id;
+
+		cell = row.insertCell(-1);
+		cell.innerHTML = excelRows[i].Name;
+
+		cell = row.insertCell(-1);
+		cell.innerHTML = excelRows[i].Country;
+	}
+
+	var dvExcel = document.getElementById("dvExcel");
+	dvExcel.innerHTML = "";
+	dvExcel.appendChild(table);
 }
 
 /*
