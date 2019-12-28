@@ -1,10 +1,14 @@
 var xlsjson_object;
+
 function Upload() {
    //Reference the FileUpload element.
    var fileUpload = document.getElementById("fileUpload");
 }
 
 function sleep(ms) {
+  if(!ms){
+    ms = 3000;
+  }
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -115,15 +119,12 @@ var ExcelToJSON = function() {
 function handleFileSelect(evt) {
  
  var files = evt.target.files; // FileList object
+ setFileName(files[0]);
  
  var xl2json = new ExcelToJSON();
  xl2json.parseExcel(files[0]);
- sleep(3000);
- var fileData = getXlsFileData();
- setFileName(files[0]);
- console.log('file data recevied printing the data');
- console.log(fileData);
- sleep(3000).then(() => { sendMessages });
+ sleep(10000).then(sendMessages);
+ 
 }
 
 var feedFileData = function(obj) {
@@ -135,7 +136,11 @@ var feedFileName = function(obj) {
 };
 
 function saveFileData(obj) {
+  if(!obj){
+    return
+  }
   setDataInMemory('fileDataInfo', obj);
+  
 }
 
 
@@ -149,7 +154,12 @@ function getFileName() {
 
 
 function setFileName(objFileName) {
-  setDataInMemory('fileName', objFileName);
+  if(!objFileName){
+    return
+  }
+  var selectedFileName = objFileName.name;
+  setDataInMemory('fileName', selectedFileName);
+  
 }
 
 function setDataInMemory(key, obj){
@@ -157,11 +167,16 @@ function setDataInMemory(key, obj){
     console.log('Error: No data provided for saving');
     return;
   }
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.set({key : obj},function(){
-        console.log('Data saved in memory KEY : ' +key);
-    });
+  
+  let dataArr= {key : obj};
+
+  //dataArr[key] = obj;
+  //chrome.storage.local.set(dataArr);
+  
+  chrome.storage.local.set({key : obj},function(){
+    console.log('Data saved in memory KEY : ' +key);
   });
+  sleep(2000).then(sleepWaiter);
 }
 
 function getDataInMemory(key) {
@@ -170,13 +185,13 @@ function getDataInMemory(key) {
     console.log('Error: No key name provided for get data');
     return;
   }
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(['key'], function(result) {
-      console.log('Value currently is KEY :' + result.key);
-      obj = result.key;
-    });
+  var retriveKey = 'key';
+  //[key] for get key value
+  chrome.storage.local.get([retriveKey], function(result) {
+    console.log('Value currently is KEY : '+ key + ' is ' + result.key);
+    obj = result.key;
   });
-  //sleep(2000);
+  sleep(2000).then(sleepWaiter);
   return obj;
 }
 

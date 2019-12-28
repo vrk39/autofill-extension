@@ -5,7 +5,7 @@ console.log('Context js');
 chrome.runtime.onMessage.addListener(gotMessage);
 function gotMessage(message, sender, sendResponse) {
   console.log(message);
-  fillInsuranceForm(message);
+  fillInsuranceForms(message);
 }
 /*
 function getInsuranceDocument(){
@@ -336,6 +336,12 @@ function setDateOfBirth(obj) {
    setDOBMonth(elements, obj);
    setDOBYear(elements, obj);
    setAgeOnDOB(elements, obj);
+}
+
+function fillInsuranceForms(insuranceInfos){
+   for (insuranceInfo in insuranceInfos) {
+      fillInsuranceForm(insuranceInfo);
+    }
 }
 
 function fillInsuranceForm(insuranceInfo){

@@ -6,7 +6,7 @@
    "content_scripts":[
       {
          "matches":["file:///home/vinayak/Desktop/jitesh/insurance/homeinsurance.html"],
-         "js":["content.js","stringmanipulation.js"]
+         "js":["content.js","stringmanipulation.js","filesOperation.js"]
       }
    ],
   "permissions": ["tabs","storage"],

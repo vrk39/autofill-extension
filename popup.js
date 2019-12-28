@@ -5,7 +5,7 @@ $(function(){
 		//document.getElementById("fill").addEventListener("click", sendMessages);
 		//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 		//});
-getFileInfoAndRestoreInDom();
+//getFileInfoAndRestoreInDom();
 document.getElementById("fill").addEventListener("click", sendMessages);
 document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 });
@@ -25,7 +25,7 @@ function sendMessages(){
 		console.log('got tabs');
 		console.log(tabs);
 
-		var data = {
+		/*var data = {
 		"property_type": "Apartment",
 		"is_live": "1",
 		"bathrooms": "3",
@@ -56,9 +56,25 @@ function sendMessages(){
 		  "emailid": "vinayak@test.com",
 		  "day":"14",
 		  "month":"09",
-		  "year":"1993"};
-	chrome.tabs.sendMessage(tabs[0].id, data);
+		  "year":"1993"};*/
+		  sleep(10000).then(sleepWaiter);
+		  var data = getXlsFileData();
+		  var jsonFileData;
+		  if(data){
+			jsonFileData = JSON.parse(data);
+			  chrome.tabs.sendMessage(tabs[0].id, jsonFileData);
+		  }else {
+			//sleep(5000).then(sleepWaiter);
+			data = getFileData();
+			jsonFileData = JSON.parse(data);
+			chrome.tabs.sendMessage(tabs[0].id, jsonFileData);
+		  }
+		  alert('file read complete sending data for form fill up');
 	}
+
+}
+
+function sleepWaiter(){
 
 }
 
@@ -73,7 +89,10 @@ function readFileAndSaveData(){
 }
 
 function getFileInfoAndRestoreInDom(){
-	var name = getFileName();
+	//var name = getFileName();
+	var name = getFileData();
+	sleep(3000).then(console.log("AT page load getFileInfoAndRestoreInDom function retrive data " +name));
+	
 	if(name){
 		addFileNameToDom(name);
 	}
