@@ -1,12 +1,13 @@
 $(function(){
-	document.addEventListener('DOMContentLoaded', function() {
-		getFileInfoAndRestoreInDom();
+	//document.addEventListener('DOMContentLoaded', function() {
+		//getFileInfoAndRestoreInDom();
 		// event listener for the button inside popup window
-		document.getElementById("fill").addEventListener("click", sendMessages);
-		document.getElementById('upload').addEventListener('change', handleFileSelect, false);
-	});
-//document.getElementById("fill").addEventListener("click", sendMessages);
-//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+		//document.getElementById("fill").addEventListener("click", sendMessages);
+		//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+		//});
+getFileInfoAndRestoreInDom();
+document.getElementById("fill").addEventListener("click", sendMessages);
+document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 });
 
 
@@ -72,8 +73,10 @@ function readFileAndSaveData(){
 }
 
 function getFileInfoAndRestoreInDom(){
-	var filName = getFileName();
-	addFileNameToDom(fileName);
+	var name = getFileName();
+	if(name){
+		addFileNameToDom(name);
+	}
 }
 
 var getProperty = function (propertyName) {
