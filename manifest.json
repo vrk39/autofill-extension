@@ -9,7 +9,7 @@
          "js":["content.js","stringmanipulation.js"]
       }
    ],
-  "permissions": ["tabs"],
+  "permissions": ["tabs","storage"],
   "web_accessible_resources": [
    "data/*.xls" ],
   "browser_action":{
