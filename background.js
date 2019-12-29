@@ -1,12 +1,91 @@
-document.getElementById("fill").addEventListener("click", sendMessages);
+//document.getElementById("fill").addEventListener("click", sendMessages);
+document.addEventListener('DOMContentLoaded', function() {
+	
+	//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+});
+
+chrome.browserAction.onClicked.addListener(function(activeTab)
+{
+    var newURL = chrome.extension.getURL('popup.html');
+    chrome.tabs.create({ url: newURL });
+});
+
+chrome.runtime.onMessage.addListener(gotMessage);
+function gotMessage(message, sender, sendResponse) {
+	console.log('Background script receive message '+message);
+	console.log('Background script sender message '+sender);
+	
+	if (message.setFileData){
+		saveFileData(message.setFileData);
+		//chrome.runtime.sendMessage({response: 'reading file'});
+		//port.postMessage({question: "Who's there?"});
+
+	  } else if (message.command == "GET_FILE_DATA"){
+		  var fileData;
+		  port.postMessage({data: fileData});
+	  }else if(message.command == "FILL_FORM_DATA"){
+		sendCommandeToFillForm();
+	  }
+  //fillInsuranceForms(message);
+}
+/*
+chrome.runtime.onConnect.addListener(function(port) {
+	console.assert(port.name == "background");
+	port.onMessage.addListener(function(msg) {
+	  if (msg.readFile){
+		handleFileSelect(msg.readFile);
+		//port.postMessage({question: "Who's there?"});
+
+	  } else if (msg.command == "GET_FILE_DATA"){
+		  var fileData;
+		  port.postMessage({data: fileData});
+	  }
+	});
+  });
+*/
+function sendCommandeToFillForm(){
+	let params = {
+		active: true,
+		TabStatus : "complete",
+		url :"*://*/homeinsurance.html"
+	  };
+	  chrome.tabs.query(params, gotTabs);
+	  function gotTabs(tabs){
+		console.log('got tabs');
+		console.log(tabs);
+		
+		for(let counter=0 ; counter< tabs.length ; counter++){
+			console.log(tabs[counter]);
+		}
+
+		//  chrome.tabs.sendMessage(tabs[0].id, file);
+
+	}
+}
+
+function sendFileDetails(file){
+    let params = {
+      active: true,
+      currentWindow: true
+    };
+    chrome.tabs.query(params, gotTab);
+
+	function gotTab(tabs){
+		console.log('got tabs');
+		console.log(tabs);
+		  chrome.tabs.sendMessage(tabs[0].id, file);
+
+	}
+}
 
 function sendMessages(){
 
     console.log('text changed');
 
     let params = {
-      active: true,
-      currentWindow: true
+	  active: true,
+	  TabStatus : "complete",
+	  url :"*://*/homeinsurance.html"
     };
     chrome.tabs.query(params, gotTabs);
 

@@ -2,11 +2,24 @@
 console.log('Chrome extension go?');
 console.log('Context js');
 
+/*
 chrome.runtime.onMessage.addListener(gotMessage);
 function gotMessage(message, sender, sendResponse) {
   console.log(message);
   fillInsuranceForms(message);
 }
+*/
+
+
+var port = chrome.runtime.connect({name: "background"});
+port.onMessage.addListener(function(msg) {
+  if (msg.command == "FILL_FILE_DATA"){
+     port.postMessage({command: "GET_FILE_DATA"});
+  } else if (msg.data){
+   fillInsuranceForms(msg.data);
+  }
+});
+
 /*
 function getInsuranceDocument(){
  	return insuranceDocument;
@@ -119,10 +132,14 @@ function setMatchedElementValue(formElements, eleName , value){
 
 
 function setPropertyType(obj) {
-   var proName = 'property_type'
-   var value = obj.property_type;
-   var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+   sleep(2000).then(() => {
+      //do stuff
+      var proName = 'property_type'
+      var value = obj.property_type;
+      var elements = getElement('form-control');
+      setMatchedElementValue(elements, proName ,value);
+    })
+  
 }
 
 function setBathrooms(obj){

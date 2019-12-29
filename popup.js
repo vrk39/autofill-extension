@@ -6,11 +6,52 @@ $(function(){
 		//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 		//});
 //getFileInfoAndRestoreInDom();
-document.getElementById("fill").addEventListener("click", sendMessages);
-document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+document.getElementById("fill").addEventListener("click", sendFormFillupEvent);
+document.getElementById('upload').addEventListener('change', readFileDataEvent, false);
 });
 
+function sendFormFillupEvent(){
+	chrome.runtime.sendMessage({command: "FILL_FORM_DATA"}, function(response) {
+		console.log(response);
+	});
+}
 
+function sendFileDataForSaving(){
+	if(!xlsjson_object){
+		console.log('Empty Json object from file');
+	}
+	
+	chrome.runtime.sendMessage({setFileData: xlsjson_object}, function(response) {
+		console.log(response);
+	});
+}
+
+function readFileDataEvent(evt){
+	console.log('text changed');
+	
+	handleFileSelect(evt);
+
+	/*
+	var port = chrome.runtime.connect({name: "background"});
+	console.log(port);
+	port.postMessage({readFile: files[0]});*/
+	
+	  /*
+    let params = {
+      active: true,
+      currentWindow: true
+    };
+    chrome.tabs.query(params, gotTab);
+
+	function gotTab(tabs){
+		console.log('got tabs');
+		console.log(tabs);
+		chrome.tabs.sendMessage(tabs[0].id, evt);
+	}
+	*/
+}
+
+/*
 function sendMessages(){
 
     console.log('text changed');
@@ -25,7 +66,7 @@ function sendMessages(){
 		console.log('got tabs');
 		console.log(tabs);
 
-		/*var data = {
+		var data = {
 		"property_type": "Apartment",
 		"is_live": "1",
 		"bathrooms": "3",
@@ -56,7 +97,7 @@ function sendMessages(){
 		  "emailid": "vinayak@test.com",
 		  "day":"14",
 		  "month":"09",
-		  "year":"1993"};*/
+		  "year":"1993"};
 		  sleep(10000).then(sleepWaiter);
 		  var data = getXlsFileData();
 		  var jsonFileData;
@@ -72,7 +113,7 @@ function sendMessages(){
 		  alert('file read complete sending data for form fill up');
 	}
 
-}
+}*/
 
 function sleepWaiter(){
 

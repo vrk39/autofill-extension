@@ -9,12 +9,15 @@
          "js":["content.js","stringmanipulation.js","filesOperation.js"]
       }
    ],
-  "permissions": ["tabs","storage"],
+   "background": {
+      "scripts": ["background.js","jquery-3.1.0.min.js","stringmanipulation.js","memoryCacher.js"],
+      "persistent": true
+    },
+  "permissions": ["activeTab","storage"],
   "web_accessible_resources": [
-   "data/*.xls" ],
+   "data/*.xls","popup.html" ],
   "browser_action":{
-      "default_icon":"logo.png",
-      "default_popup":"popup.html",
+      "default_icon":{"15":"icons8-file-64.png","16": "download-file.png"},
       "default_title": "fillup form"
    }
 }
