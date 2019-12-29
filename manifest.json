@@ -6,18 +6,18 @@
    "content_scripts":[
       {
          "matches":["file:///home/vinayak/Desktop/jitesh/insurance/homeinsurance.html"],
-         "js":["content.js","stringmanipulation.js","filesOperation.js"]
+         "js":["content.js","stringmanipulation.js","insurance.js"]
       }
    ],
    "background": {
       "scripts": ["background.js","jquery-3.1.0.min.js","stringmanipulation.js","memoryCacher.js"],
       "persistent": true
     },
-  "permissions": ["activeTab","storage"],
+  "permissions": ["activeTab","storage","tabs"],
   "web_accessible_resources": [
    "data/*.xls","popup.html" ],
   "browser_action":{
-      "default_icon":{"15":"icons8-file-64.png","16": "download-file.png"},
+      "default_icon":"auto.png",
       "default_title": "fillup form"
    }
 }

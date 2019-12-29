@@ -1,25 +1,59 @@
-function something(){
-     console.log( 'something method called');
+//var insuranceDocument = window.document.getElementById("f");
+
+/*
+var port = chrome.runtime.connect({name: "background"});
+port.onMessage.addListener(function(msg) {
+  if (msg.command == "FILL_FILE_DATA"){
+     port.postMessage({command: "GET_FILE_DATA"});
+  } else if (msg.data){
+   fillInsuranceForms(msg.data);
+  }
+});*/
+
+function sleep(ms) {
+  if(!ms){
+    ms = 3000;
+  }
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function stateChange(newState = -1) {
+  if (newState == -1) {
+    
+  }
 }
 
 function setElementValue(fieldName, value)  {
-     var selector = '[name="' + fieldName + '[]"]';
-     var element = $(selector);
+     var element =  document.getElementsByClassName(fieldName);
      element.val(value);
 }
 
-function getElement(elementName){
-   var element = document.getElementById("f");
-   var selector = '[name="' + elementName + '[]"]';
-   var elt = (true) ? element.find(selector) : $(selector);
+function getElement(elementClassName){
+   var elt = document.getElementsByClassName(elementClassName);
+   return elt;
+}
+
+function getElementsByName(elementName){
+   var elt = document.getElementsByName(elementName);
    return elt;
 }
 
 function setElementValueOnType(eltName, value){
-var element = document.getElementById("f");
-   var elt = getElement(eltName);
+
+   var elt = getElement('form-control');
   var x = document.URL;
-   
+	var i;
+	for (i = 0; i < elt.length; ++i) {
+	    // do something with `substr[i]`
+		var item  = elt[i];
+		console.log( item.name);
+		if(item.name === 'property_type'){
+			item.value = value;		
+		}
+	}
+//elt.value = value;
+
+   /*
    if (elt.length == 1) {
       elt.val((elt.attr("type") == "checkbox") ? [value] : value);
    
@@ -29,157 +63,299 @@ var element = document.getElementById("f");
    } else {
       var selector = '[name="' + eltName + '[]"]';
       var restrict = true; 
-      elt = (true) ? element.find(selector) : $(selector);
-//      elt = $(selector);
+      //elt = (true) ? element.find(selector) : $(selector);
+      elt = $(selector);
       elt.val(value);
-      /*elt.each(function() {
-         $(this).val(value);
-      });*/
-   }
+      //elt.each(function() {
+        // $(this).val(value);
+//      });
+   }*/
+
 }
 
+function setMatchedElementValue(formElements, eleName , value){
+	for (let i = 0; i < formElements.length; ++i) {
+	    // do something with `substr[i]`
+		var ele  = formElements[i];
+		if(ele.name === eleName){
+			var valueSet = false;	
+			if(ele.nodeName === 'INPUT'){
+				console.log( ele.type);
+				if(ele.type === 'radio' && ele.value === value){
+					ele.checked = 'true';
+					valueSet = true;
+				}else if(ele.type === 'select-one'){
+					ele.value = value;
+					valueSet = true;
+				}else if(ele.type === 'text' || ele.type === 'email'){
+					//ele.value = value;
+					enterDataLikeTyping(ele, value);
+					valueSet = true;
+				}
+
+			}else if(ele.nodeName === 'SELECT'){
+				console.log( ele.type);
+				ele.value = value;
+				valueSet = true;
+			}else if (ele.nodeName === 'TEXTAREA'){
+				console.log( ele.type);
+				//ele.value = value;
+				enterDataLikeTyping(ele, value);
+				valueSet = true;
+			}
+
+			if(valueSet){
+				return false;		
+			}
+		}
+	}
+}
+
+
 function setPropertyType(obj) {
-   var value = obj.property_type;
-   setElementValueOnType("property_type", value);
+   sleep(2000).then(() => {
+      //do stuff
+      var proName = 'property_type'
+      var value = obj.property_type;
+      var elements = getElement('form-control');
+      setMatchedElementValue(elements, proName ,value);
+    })
+  
 }
 
 function setBathrooms(obj){
+var proName = 'bathrooms'
    var value = obj.bathrooms;
-   setElementValueOnType("bathrooms", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setYearBuild(obj) {
+var proName = 'year_built'
   var value = obj.year_built;
-  setElementValueOnType("year_built", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setAgeOfRoof(obj) {
+var proName = 'age_of_roof'
   var value = obj.age_of_roof;
-  setElementValueOnType("age_of_roof", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setGarage(obj) {
+var proName = 'garage'
   var value = obj.garage;
-  setElementValueOnType("garage", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setSquareFoot(obj) {
+var proName = 'sq_footage'
   var value = obj.sq_footage;
-  setElementValueOnType("sq_footage", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setStories(obj) {
+var proName = 'stories'
   var value = obj.stories;
-  setElementValueOnType("stories", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setIsOwned(obj) {
+var proName = 'is_owned'
   var value = obj.is_owned;
-  setElementValueOnType("is_owned", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setBedrooms(obj) {
+var proName = 'bedrooms'
   var value = obj.bedrooms;
-  setElementValueOnType("bedrooms", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setAdditionalCoverage(obj) {
+var proName = 'additional_coverage'
   var value = obj.additional_coverage;
-  setElementValueOnType("additional_coverage", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setCoverageTerm(obj) {
+var proName = 'coverage_term'
   var value = obj.coverage_term;
-  setElementValueOnType("coverage_term", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setDesiredCoverageAmt(obj) {
+var proName = 'desired_coverage_amount'
   var value = obj.desired_coverage_amount;
-  setElementValueOnType("desired_coverage_amount", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 
 function setDesiredDeductible(obj) {
+var proName = 'desired_deductible'
   var value = obj.desired_deductible;
-  setElementValueOnType("desired_deductible", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setDesiredLiabilityCoverage(obj) {
+var proName = 'desired_liability_coverage'
   var value = obj.desired_liability_coverage;
-  setElementValueOnType("desired_liability_coverage", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setInsuranceType(obj) {
+var proName = 'is_insured'
   var value = obj.is_insured;
-  setElementValueOnType("is_insured", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setCreditRating(obj) {
+var proName = 'credit_rating'
   var value = obj.credit_rating;
-  setElementValueOnType("credit_rating", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
+//radio buttons type="radio"
 function setClaimsThreeYrs(obj) {
+var proName = 'is_claim_3_years'
   var value = obj.is_claim_3_years;
-  setElementValueOnType("is_claim_3_years", value);
+ var elements = getElementsByName('is_claim_3_years');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setTitle(obj) {
-  var value = obj.title;
-  setElementValueOnType("title", value);
+var proName = 'title'
+  var value = removeSpecialCharacter(obj.title, '');
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,returnStringWithFirstCharUpper(value));
 }
 
 function setBloodGroup(obj) {
-  var value = obj.blood_group;
-  setElementValueOnType("blood_group", value);
+var proName = 'blood_group'
+  var value = removeSpecialCharacter(obj.blood_group, '');
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,returnStringWithFirstCharUpper(value));
 }
 
 function setFirstName(obj) {
-  var value = obj.first_name;
-  setElementValueOnType("first_name", value);
+var proName = 'first_name'
+  var value = removeSpecialCharacter(obj.first_name, '');
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,returnStringWithFirstCharUpper(value));
 }
 
 function setAddress(obj) {
-  var value = obj.address;
-  setElementValueOnType("address", value);
+   var proName = 'address'
+   var value = returnString(obj.address);
+   var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setLastName(obj) {
-  var value = obj.last_name;
-  setElementValueOnType("last_name", value);
+  var proName = 'last_name'
+  var value = removeSpecialCharacter(obj.last_name, '');
+   var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,returnStringWithFirstCharUpper(value));
 }
 
 function setZipCode(obj) {
+var proName = 'zip_code'
   var value = obj.zip_code;
-  setElementValueOnType("zip_code", value);
+ var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setGender(obj) {
+var proName = 'gender'
    var value = obj.gender;
-   setElementValueOnType("gender", value);
+ var elements = getElementsByName('gender');
+   setMatchedElementValue(elements, proName ,value);
 }
 
 function setPhone(obj) {
+   var proName = 'phone'
    var value = obj.phone;
-   setElementValueOnType("phone", value);
+   var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
 }
+
 function setEmailId(obj) {
+   var proName = 'emailid'
    var value = obj.emailid;
-   setElementValueOnType("emailid", value);
+   var elements = getElement('form-control');
+   setMatchedElementValue(elements, proName ,value);
+}
+
+function setDOBDay(elements , obj) {
+   var proName = 'day';
+   var dayValue = obj.day;
+   setMatchedElementValue(elements, proName ,dayValue);
+}
+
+function setDOBMonth(elements , obj) {
+   var proName = 'month';
+   var monthValue = obj.month;
+   setMatchedElementValue(elements, proName ,monthValue);
+}
+
+function setDOBYear(elements , obj) {
+   var proName = 'year';
+   var yearValue = obj.year;
+   setMatchedElementValue(elements, proName ,yearValue);
+}
+
+function setAgeOnDOB(elements , obj) {
+   var proName = 'age';
+   var birthDate = new Date(obj.year, obj.month, obj.day);
+   var ageDifMs = Date.now() - birthDate.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+   setMatchedElementValue(elements, proName ,age);
+}
+
+
+function setDateOfBirth(obj) {
+   var elements = getElement('form-control');
+   setDOBDay(elements, obj);
+   setDOBMonth(elements, obj);
+   setDOBYear(elements, obj);
+   setAgeOnDOB(elements, obj);
+}
+
+function fillInsuranceForms(insuranceInfos){
+   for (insuranceInfo in insuranceInfos) {
+      fillInsuranceForm(insuranceInfo);
+    }
 }
 
 function fillInsuranceForm(insuranceInfo){
-	var element = getInsuranceDocument();
+  var waitTime = 15000;
+	
   setPropertyType(insuranceInfo);
-  setBathrooms(insuranceInfo);
   setYearBuild(insuranceInfo);
-
-  setAgeOfRoof(insuranceInfo);
-  setGarage(insuranceInfo);
   setSquareFoot(insuranceInfo);
-  setStories(insuranceInfo);
   setIsOwned(insuranceInfo);
+  setAgeOfRoof(insuranceInfo);
+  setStories(insuranceInfo);
   setBedrooms(insuranceInfo);
+  setBathrooms(insuranceInfo);
+  setGarage(insuranceInfo);
+
+
   setAdditionalCoverage(insuranceInfo);
   setCoverageTerm(insuranceInfo);
   setDesiredCoverageAmt(insuranceInfo);
@@ -188,7 +364,10 @@ function fillInsuranceForm(insuranceInfo){
   setInsuranceType(insuranceInfo);
   setCreditRating(insuranceInfo);
   setClaimsThreeYrs(insuranceInfo);
+
+
   setTitle(insuranceInfo);
+	fiveSeconds(0);
   setBloodGroup(insuranceInfo);
   setFirstName(insuranceInfo);
   setAddress(insuranceInfo);
@@ -197,43 +376,6 @@ function fillInsuranceForm(insuranceInfo){
   setGender(insuranceInfo);
   setPhone(insuranceInfo);
   setEmailId(insuranceInfo);
+  setDateOfBirth(insuranceInfo);
 }
-/*(function($) {
-    
-    var namespace;
-    
-    namespace = {
-        something : function() {
-            alert('hello there!');
-        },
-        bodyInfo : function() {
-            alert($('body').attr('id'));
-        }
-    };
-    
-    window.ns = namespace;
-    
-})(this.jQuery);*/
-/*$(function(){
-
-	var print = function () {
-	        console.log( 'popup js loaded and its wroking');
-    		};
-
-	jQuery.fn.extend({
-    		workingInsurancejs: function () {
-     		console.log( 'popup js loaded and its wroking');
-    		}
-	});
-
-	jQuery.fn.extend({
-		setElementValue: function (fieldName, value) {
-	        var selector = '[name="' + fieldName + '[]"]';
-        	var element = $(selector);
-        	element.val(value);
-    		}
-	});
-
-});
-*/
 

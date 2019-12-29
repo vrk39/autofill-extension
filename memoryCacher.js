@@ -1,3 +1,4 @@
+var fileData;
 var feedFileData = function(obj) {
     saveFileData(obj);
   };
@@ -18,9 +19,17 @@ var feedFileData = function(obj) {
     
   }
   
+  function getFileDataObj(){
+      return fileData;
+  }
   
-  function getFileData(obj) {
-    getDataInMemory('fileDataInfo');
+  function getFileData() {
+
+    chrome.storage.local.get(['fileDataInfo'], function(result) {
+        console.log('Value currently is KEY : fileDataInfo is ' + result.fileDataInfo);
+        fileData = result.fileDataInfo;
+      });
+    
   }
   
   function getFileName() {
@@ -53,23 +62,20 @@ var feedFileData = function(obj) {
     chrome.storage.local.set({key : obj},function(){
       console.log('Data saved in memory KEY : ' +key);
     });
-    sleep(2000).then(sleepWaiter);
+    
   }
   
   function getDataInMemory(key) {
-    var obj;
     if (!key) {
       console.log('Error: No key name provided for get data');
       return;
     }
-    var retriveKey = 'key';
+    
     //[key] for get key value
-    chrome.storage.local.get([retriveKey], function(result) {
+    chrome.storage.local.get([key], function(result) {
       console.log('Value currently is KEY : '+ key + ' is ' + result.key);
-      obj = result.key;
+      fileData = result.key;
     });
-    sleep(2000).then(sleepWaiter);
-    return obj;
   }
   
    chrome.storage.onChanged.addListener(function(changes, namespace) {

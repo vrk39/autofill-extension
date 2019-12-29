@@ -92,7 +92,7 @@ var ExcelToJSON = function() {
        reader.onload = function(e) {
          var data = e.target.result;
          var workbook = XLSX.read(data, {
-           type: 'binary'
+           type: 'binary', cellDates : true, cellNF : false, cellText :false, raw : false
          });
          if(workbook.SheetNames.length === 0){
           alert("Hello! File not contain sheet!!");
@@ -103,6 +103,7 @@ var ExcelToJSON = function() {
            var json_object = JSON.stringify(XL_row_object);
            //console.log(JSON.parse(json_object));
            xlsjson_object = json_object;
+           alert("Selected file has been upload please select fillup button to fill forms :)")
            sleep(5000).then(sendFileDataForSaving);
           /*"FOR READ MULTIPLE SHEET"
          workbook.SheetNames.forEach(function(sheetName) {

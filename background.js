@@ -1,8 +1,16 @@
+var insuranceFormTabObj ;
 //document.getElementById("fill").addEventListener("click", sendMessages);
 document.addEventListener('DOMContentLoaded', function() {
 	
 	//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 });
+
+function sleep(ms) {
+	if(!ms){
+	  ms = 3000;
+	}
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 chrome.browserAction.onClicked.addListener(function(activeTab)
 {
@@ -44,24 +52,61 @@ chrome.runtime.onConnect.addListener(function(port) {
   });
 */
 function sendCommandeToFillForm(){
-	let params = {
-		active: true,
-		TabStatus : "complete",
-		url :"*://*/homeinsurance.html"
-	  };
-	  chrome.tabs.query(params, gotTabs);
-	  function gotTabs(tabs){
-		console.log('got tabs');
-		console.log(tabs);
+	try {
 		
-		for(let counter=0 ; counter< tabs.length ; counter++){
-			console.log(tabs[counter]);
-		}
+		chrome.windows.getAll({populate:true},function(windows){
+			windows.forEach(function(window){
+				window.tabs.forEach(function(tab){
+					if(!tab){
+						alert("Alert! Insurance form not found. Please Open it and do the process again :)")
+						return;
+					}
+					//collect all of the urls here, I will just log them instead
+					if(tab.url.includes("homeinsurance.html") || tab.title.includes("homeinsurance")){
+						insuranceFormTabObj = tab;
+						
+					}
+					console.log(tab.url);
+		  		});
+			});
+		});
+		
+		getFileData();
 
-		//  chrome.tabs.sendMessage(tabs[0].id, file);
+		sleep(30000).then(() => {
 
+		
+			if(!insuranceFormTabObj){
+				alert("Alert! Insurance form not found. Please Open it and do the process again :)")
+				return;
+			}
+	
+			var insuranceJson = JSON.parse(getFileDataObj());
+			
+			if(insuranceJson){
+		
+				for(let counter =0 ; counter < insuranceJson.length; counter++){
+					// Usage!
+					insruranceDataObj = insuranceJson[counter];
+					try {
+						sleep(30000).then(() => {
+				
+							chrome.tabs.sendMessage(insuranceFormTabObj.id, {FILL_INSURANCE_FORM : insruranceDataObj});
+						});	
+					} catch (error) {
+						console.log(error);
+					}
+				}
+			}else{
+				console.log('insurance data not found from storage');
+			}
+		});
+	} catch (error) {
+		console.log(error);
 	}
 }
+
+
 
 function sendFileDetails(file){
     let params = {
@@ -125,4 +170,10 @@ function sendMessages(){
 	chrome.tabs.sendMessage(tabs[0].id, data);
 	}
 
+}
+
+function stateChange(newState = -1) {
+	if (newState == -1) {
+	  
+	}
 }
