@@ -5,7 +5,7 @@
    "version":"0.1",
    "content_scripts":[
       {
-         "matches":["file:///home/vinayak/Desktop/jitesh/insurance/homeinsurance.html"],
+         "matches":["<all_urls>"],
          "js":["content.js","stringmanipulation.js","insurance.js"]
       }
    ],

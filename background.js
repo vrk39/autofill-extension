@@ -73,8 +73,8 @@ function sendCommandeToFillForm(){
 		
 		getFileData();
 
-		sleep(30000).then(() => {
-
+		sleep(5000).then(() => {
+			console.log('ready to send fill form message');
 		
 			if(!insuranceFormTabObj){
 				alert("Alert! Insurance form not found. Please Open it and do the process again :)")
@@ -89,8 +89,8 @@ function sendCommandeToFillForm(){
 					// Usage!
 					insruranceDataObj = insuranceJson[counter];
 					try {
-						sleep(30000).then(() => {
-				
+						sleep(5000).then(() => {
+							console.log('sending message to fill form');
 							chrome.tabs.sendMessage(insuranceFormTabObj.id, {FILL_INSURANCE_FORM : insruranceDataObj});
 						});	
 					} catch (error) {

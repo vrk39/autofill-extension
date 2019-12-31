@@ -1,3 +1,4 @@
+var commentsArr ;
 //var insuranceDocument = window.document.getElementById("f");
 
 /*
@@ -78,6 +79,8 @@ function setMatchedElementValue(formElements, eleName , value){
 	    // do something with `substr[i]`
 		var ele  = formElements[i];
 		if(ele.name === eleName){
+      //focus to look like selected
+      ele.focus();
 			var valueSet = false;	
 			if(ele.nodeName === 'INPUT'){
 				console.log( ele.type);
@@ -111,122 +114,275 @@ function setMatchedElementValue(formElements, eleName , value){
 	}
 }
 
+function validPropertyType(type){
+
+}
 
 function setPropertyType(obj) {
    sleep(2000).then(() => {
       //do stuff
-      var proName = 'property_type'
-      var value = obj.property_type;
+      let properyTypeIndex = 1;
+      let elementName = 'property_type';
+      if(!(Array.isArray(commentsArr) && commentsArr.length <= properyTypeIndex && commentsArr[properyTypeIndex])){
+        console.log('Insurance info not contain property Type(XLS name - Project)');
+        return;
+      }
+      var value = commentsArr[properyTypeIndex];
+      //validate value
+      //validPropertyType(value);
       var elements = getElement('form-control');
-      setMatchedElementValue(elements, proName ,value);
+      setMatchedElementValue(elements, elementName ,value);
     })
   
 }
 
 function setBathrooms(obj){
-var proName = 'bathrooms'
-   var value = obj.bathrooms;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'bathrooms';
+    if(!obj.hasOwnProperty('Bathroom')){
+      console.log('Insurance info not contain property Type(XLS name - Bathroom)');
+      return;
+    }
+    var value = obj['Bathroom'];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+  });
+
+}
+//TODO: set Year build
+function setYearBuild(obj) {
+  sleep(2000).then(() => {
+    var elementName = 'year_built';
+    if(!obj.hasOwnProperty('Bathroom')){
+      console.log('Insurance info not contain property Type(XLS name - Bathroom)');
+      return;
+    }
+    var value = obj['year_built'];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
-function setYearBuild(obj) {
-var proName = 'year_built'
-  var value = obj.year_built;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+function validateAgeOfRoof(value){
+
 }
 
 function setAgeOfRoof(obj) {
-var proName = 'age_of_roof'
-  var value = obj.age_of_roof;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'age_of_roof';
+    if(!obj.hasOwnProperty('Age Of Roof')){
+      console.log('Insurance info not contain property Type(XLS name - Age Of Roof)');
+      return;
+    }
+    var value = obj["Age Of Roof"];
+    //validate age of roof
+    //validateAgeOfRoof(value);
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+  });
+}
+
+function validateGarage(){
+
 }
 
 function setGarage(obj) {
-var proName = 'garage'
-  var value = obj.garage;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    let garageInfoIndex = 2;
+    var elementName = 'garage'
+    if(!commentsArrObj[garageInfoIndex]){
+      console.log('Insurance info not contain property Type(garage)');
+      return;
+    }
+    var value = commentsArrObj[garageInfoIndex];
+    //validate value
+    //validateGarage(value);
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
+function validateSqFoot(arrayValue , objUserEnteredValue){
+
+}
+
+//TODO: set square foot value
 function setSquareFoot(obj) {
-var proName = 'sq_footage'
-  var value = obj.sq_footage;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  let sqFootIndex = 
+  sleep(2000).then(() => {
+    var elementName = 'sq_footage';
+    if(!(commentsArrObj[sqFootIndex] && commentsArrObj.length <= sqFootIndex || obj.hasOwnProperty('Level'))){
+      console.log('Insurance info not contain property Type(garage)');
+      return;
+    }
+    var value = obj['level'];
+    let arrayValue = commentsArrObj[sqFootIndex];
+    //validate sqFoot
+    //function validateSqFoot
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setStories(obj) {
-var proName = 'stories'
-  var value = obj.stories;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'stories'
+
+    //Set stories value
+    var value = 4;
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+  });
 }
 
 function setIsOwned(obj) {
-var proName = 'is_owned'
-  var value = obj.is_owned;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'is_owned'
+    var value = 1; // this value will be always true : 1 , false : 0
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setBedrooms(obj) {
-var proName = 'bedrooms'
-  var value = obj.bedrooms;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'bedrooms'
+    if(!obj.hasOwnProperty('Bedroom')){
+      console.log('Insurance info not contain property Type(XLS name - Bedroom)');
+      return;
+    }
+    var value = obj['Bedroom'];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setAdditionalCoverage(obj) {
-var proName = 'additional_coverage'
-  var value = obj.additional_coverage;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'additional_coverage';
+    var value = 'Contents Coverage';
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setCoverageTerm(obj) {
-var proName = 'coverage_term'
-  var value = obj.coverage_term;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'coverage_term';
+    if(!obj.hasOwnProperty('Coverage Term')){
+      console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
+      return;
+    }
+    var value = obj['Coverage Term'];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
+}
+
+function getDesiredCoverageAmtOnCoverageTerms(obj){
+  if(!obj.hasOwnProperty('Coverage Term')){
+    console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
+    return;
+  }
+  let coverageTermYear = obj['Coverage Term'];
+  if(coverageTermYear === 10){
+    return 300000;
+  }else{
+    return 150000;
+  }
 }
 
 function setDesiredCoverageAmt(obj) {
-var proName = 'desired_coverage_amount'
-  var value = obj.desired_coverage_amount;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'desired_coverage_amount'
+    var value = getDesiredCoverageAmtOnCoverageTerms(obj);
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
+function getDesiredDeductibleOnCoverageTerms(obj){
+  if(!obj.hasOwnProperty('Coverage Term')){
+    console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
+    return;
+  }
+  let coverageTermYear = obj['Coverage Term'];
+  if(coverageTermYear === 10){
+    return 500;
+  }else{
+    return 250;
+  }
+}
 
 function setDesiredDeductible(obj) {
-var proName = 'desired_deductible'
-  var value = obj.desired_deductible;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'desired_deductible'
+    var value = getDesiredDeductibleOnCoverageTerms(obj);
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
+}
+
+function getDesiredLiabilityOnCoverageTerms(obj){
+  if(!obj.hasOwnProperty('Coverage Term')){
+    console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
+    return;
+  }
+  let coverageTermYear = obj['Coverage Term'];
+  if(coverageTermYear === 10){
+    return 100,000;
+  }else{
+    return 50,000;
+  }
 }
 
 function setDesiredLiabilityCoverage(obj) {
-var proName = 'desired_liability_coverage'
-  var value = obj.desired_liability_coverage;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'desired_liability_coverage'
+    var value = getDesiredLiabilityOnCoverageTerms(obj);
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setInsuranceType(obj) {
-var proName = 'is_insured'
-  var value = obj.is_insured;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  sleep(2000).then(() => {
+    var elementName = 'is_insured'
+    if(!obj.hasOwnProperty('Insurance Company')){
+      console.log('Insurance info not contain property Type(XLS name - Insurance Company)');
+      return;
+    }
+    
+    var value = obj['Insurance Company'];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 function setCreditRating(obj) {
-var proName = 'credit_rating'
-  var value = obj.credit_rating;
- var elements = getElement('form-control');
-   setMatchedElementValue(elements, proName ,value);
+  let creditRatingIndex = 5;
+  sleep(2000).then(() => {
+    var elementName = 'credit_rating'
+    if(!(commentsArrObj[creditRatingIndex] && commentsArrObj.length <= creditRatingIndex )){
+      console.log('Insurance info not contain property Type(garage)');
+      return;
+    }
+    var value = commentsArrObj[creditRatingIndex];
+    var elements = getElement('form-control');
+    setMatchedElementValue(elements, elementName ,value);
+
+  });
 }
 
 //radio buttons type="radio"
@@ -344,6 +500,10 @@ function fillInsuranceForms(insuranceInfos){
 
 function fillInsuranceForm(insuranceInfo){
   var waitTime = 15000;
+  if(insuranceInfo.hasOwnProperty('Comments')){
+    commentsArr = insuranceInfo['Comments'].split('|');
+  }
+
 	
   setPropertyType(insuranceInfo);
   setYearBuild(insuranceInfo);
