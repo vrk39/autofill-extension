@@ -28,9 +28,9 @@ function returnStringWithFirstCharUpper(obj) {
    return str;
 }
 
-function enterDataLikeTyping(ele, value){
+async function enterDataLikeTyping(ele, value){
    //new TypeWriter(ele, value, 3000);  
-   let promiseMsg = enterDataLikeTypingPromise(ele,value);
+   let promiseMsg = await enterDataLikeTypingPromise(ele,value);
    return Promise.resolve(promiseMsg);
    
 }
@@ -47,19 +47,19 @@ function printSentence(domElement, sentence, speed) {
    }, speed);
  } 
 */
-var typingSpeedTime = 20;
+var typingSpeedTime = 0;
 
 function getTypingSpeedTime(){
    typingSpeedTime = typingSpeedTime + 6000;
    return typingSpeedTime;
 }
 
- function enterDataLikeTypingPromise(ele, value){
+ async function enterDataLikeTypingPromise(ele, value){
    let counter = 0;
    let element = ele;
    let text = value;
-   let speed = getTypingSpeedTime();
-   var message = promiseTypeWriter(counter, element, text, speed);
+   let speed = getTypingSpeedTime() + (text.length*1000);
+   var message = await promiseTypeWriter(element, text, speed);
    return Promise.resolve(message);
 
 }
@@ -95,7 +95,20 @@ promise1 = new Promise(function(resolve, reject) {
     reject("The man doesnt want to keep his word");
   }
 });
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+const promiseTypeWriter = async function(element, text, speed) {
+    for (let counter = 0; counter < text.length; counter++) {
+       let waitingTime = counter === 0 ? speed : 1000;
+        //await delay(Math.random() * 1000);
+        await delay(waitingTime);
+        element.value += text.charAt(counter);
+        console.log(counter +' --- '+text);
+    }
+    return Promise.resolve('value set in element');
+}
+
+/*
 function promiseTypeWriter(counter, element, text, speed) {
    var timeout;
    
@@ -112,6 +125,7 @@ function promiseTypeWriter(counter, element, text, speed) {
    }
    return Promise.resolve('Typewriter writing complete');
  }
+*/
 
 function typeWriter(counter, element, text, speed) {
    var timeout;
