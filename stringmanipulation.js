@@ -30,18 +30,8 @@ function returnStringWithFirstCharUpper(obj) {
 
 function enterDataLikeTyping(ele, value){
    //new TypeWriter(ele, value, 3000);  
-   new Promise(function(resolve, reject) {
-      let excutionComplete = true;
-
-      enterDataLikeTypingPromise(ele,value);
-      if (excutionComplete) {
-         resolve('enter data like typing complete');
-      } else {
-         reject('enter data like typing not complete');
-      }
-   });
-   /*var typewriter = new Typewriter(ele, {loop: false  });
-   typewriter.typeString(value).start();*/
+   let promiseMsg = enterDataLikeTypingPromise(ele,value);
+   return Promise.resolve(promiseMsg);
    
 }
 /*
@@ -60,7 +50,7 @@ function printSentence(domElement, sentence, speed) {
 var typingSpeedTime = 20;
 
 function getTypingSpeedTime(){
-   typingSpeedTime = typingSpeedTime + 3000;
+   typingSpeedTime = typingSpeedTime + 6000;
    return typingSpeedTime;
 }
 
@@ -68,19 +58,10 @@ function getTypingSpeedTime(){
    let counter = 0;
    let element = ele;
    let text = value;
-   //let speed = getTypingSpeedTime() ;
-   //typeWriter(counter, element, text, speed);
-   new Promise(function(resolve, reject) {
-      let excutionComplete = true;
+   let speed = getTypingSpeedTime();
+   var message = promiseTypeWriter(counter, element, text, speed);
+   return Promise.resolve(message);
 
-      promiseTypeWriter(element, text);
-
-      if (excutionComplete) {
-        resolve('enter data like typing complete');
-      } else {
-        reject('enter data like typing not complete');
-      }
-    });
 }
 
 function fiveSeconds  (n) {
@@ -115,17 +96,21 @@ promise1 = new Promise(function(resolve, reject) {
   }
 });
 
-function promiseTypeWriter(element, text) {
-
-   for (let counter = 0, p = Promise.resolve(); counter < text.length; counter++) {
-      p = p.then(_ => new Promise(resolve =>
-          setTimeout(function () {
-              console.log(counter);
-              element.value += text.charAt(counter);
-              resolve();
-          }, 1000)
-      ));
+function promiseTypeWriter(counter, element, text, speed) {
+   var timeout;
+   
+   console.log('counter == '+counter +' speed == '+speed+' text == '+text);
+   if (counter <= text.length) {
+      if(counter != 0){
+         element.value += text.charAt(counter-1);
+         speed = 200;
+      }
+     counter++;
+     timeout = setTimeout(function () {  
+      promiseTypeWriter(counter,element,text,speed);
+    }, speed);
    }
+   return Promise.resolve('Typewriter writing complete');
  }
 
 function typeWriter(counter, element, text, speed) {

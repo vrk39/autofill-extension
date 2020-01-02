@@ -79,14 +79,12 @@ function setElementValueOnType(eltName, value){
 }
 
 function setMatchedElementValuePromise(formElements, eleName , value){
-  new Promise(function(resolve, reject) {
-
     for (let counter = 0; counter < formElements.length; ++counter) {
 	    // do something with `substr[i]`
       var ele  = formElements[counter];
     
 		  if(ele.name === eleName){
-      //focus to look like selected
+        //focus to look like selected
         ele.focus();
 			  var valueSet = false;	
 			  if(ele.nodeName === 'INPUT'){
@@ -129,22 +127,11 @@ function setMatchedElementValuePromise(formElements, eleName , value){
 			  }
 
 			  if(valueSet){
-        //return false;		
-        resolve('enter data complete');
+          return Promise.resolve('value is set in element');
 			  }
 		  }
     }
-    /*
-    if (excutionComplete) {
-      resolve('enter data like typing complete');
-   
-    } else {
-      reject('enter data like typing not complete');
-    }
-    */
-  });
-
-	
+    return Promise.reject('value is not set in element')
 }
 
 
@@ -192,7 +179,8 @@ function validPropertyType(type){
 
 }
 
-function setPropertyType(commentsArrObj) {
+const propertyType = async function(commentsArr) {
+//async function propertyType(commentsArr) {
   let time = getSleepTime();
   sleep(time).then(() => {
       //do stuff
@@ -200,49 +188,48 @@ function setPropertyType(commentsArrObj) {
       let properyTypeIndex = 1;
       let elementName = 'property_type';
       if(!(Array.isArray(commentsArr) && commentsArr.length <= properyTypeIndex && commentsArr[properyTypeIndex])){
-        console.log('Insurance info not contain property Type(XLS name - Project)');
-        return;
+        return Promise.reject('Insurance info not contain property Type(XLS name - Project)');
       }
       var value = commentsArr[properyTypeIndex];
       //validate value
       //validPropertyType(value);
       var elements = getElement('form-control');
-      setMatchedElementValuePromise(elements, elementName ,value);
-      console.log("setPropertyType ended");
+      let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
+      return Promise.resolve(elementValueSet);
     })
   
 }
 
-function setBathrooms(obj){
+const Bathroom = async function(obj){
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setBathrooms started");
     var elementName = 'bathrooms';
     if(!obj.hasOwnProperty('Bathroom')){
-      console.log('Insurance info not contain property Type(XLS name - Bathroom)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Bathroom)');
     }
     var value = obj['Bathroom'];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
-    console.log("setBathrooms ended");
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
+    console.log("setBathrooms end");
+    return Promise.resolve(elementValueSet);
   });
 
 }
 //TODO: set Year build
-function setYearBuild(obj) {
+const yearBuild = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setYearBuild started");
     var elementName = 'year_built';
     if(!obj.hasOwnProperty('Bathroom')){
-      console.log('Insurance info not contain property Type(XLS name - Bathroom)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - YearBuild)');
     }
     var value = obj['year_built'];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setYearBuild ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
@@ -250,21 +237,19 @@ function validateAgeOfRoof(value){
 
 }
 
-function setAgeOfRoof(obj) {
+const ageOfRoof = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setAgeOfRoof started");
     var elementName = 'age_of_roof';
     if(!obj.hasOwnProperty('Age Of Roof')){
-      console.log('Insurance info not contain property Type(XLS name - Age Of Roof)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name -  Age Of Roof)');
     }
     var value = obj["Age Of Roof"];
-    //validate age of roof
-    //validateAgeOfRoof(value);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setAgeOfRoof ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
@@ -272,22 +257,23 @@ function validateGarage(){
 
 }
 
-function setGarage(commentsArrObj) {
+const garage = async function(commentsArrObj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setGarage started");
     let garageInfoIndex = 2;
     var elementName = 'garage'
     if(!commentsArrObj[garageInfoIndex]){
-      console.log('Insurance info not contain property Type(garage)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - garage)');
     }
     var value = commentsArrObj[garageInfoIndex];
     //validate value
     //validateGarage(value);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setGarage ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
@@ -296,27 +282,27 @@ function validateSqFoot(arrayValue , objUserEnteredValue){
 }
 
 //TODO: set square foot value
-function setSquareFoot(obj, commentsArrObj) {
+const squareFoot = async function(obj, commentsArrObj) {
   let sqFootIndex = 4;
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setSquareFoot started");
     var elementName = 'sq_footage';
     if(!(commentsArrObj[sqFootIndex] && commentsArrObj.length <= sqFootIndex || obj.hasOwnProperty('Level'))){
-      console.log('Insurance info not contain property Type(Level)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Level/sqFoot)');
     }
     var value = obj['Level'];
     let arrayValue = commentsArrObj[sqFootIndex];
     //validate sqFoot
     //function validateSqFoot
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setSquareFoot ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setStories(obj) {
+const stories = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setStories started");
@@ -325,74 +311,76 @@ function setStories(obj) {
     //Set stories value
     var value = 4;
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setStories ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setIsOwned(obj) {
+const isOwned = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setIsOwned started");
     var elementName = 'is_owned'
     var value = 1; // this value will be always true : 1 , false : 0
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setIsOwned ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setBedrooms(obj) {
+const bedrooms = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setBedrooms started");
     var elementName = 'bedrooms';
     if(!obj.hasOwnProperty('Bedroom')){
-      console.log('Insurance info not contain property Type(XLS name - Bedroom)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Bedroom)');
     }
     var value = obj['Bedroom'];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setBedrooms ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setAdditionalCoverage(obj) {
+const additionalCoverage = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setAdditionalCoverage started");
     var elementName = 'additional_coverage';
     var value = 'Contents Coverage';
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setAdditionalCoverage ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setCoverageTerm(obj) {
+const coverageTerm = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setCoverageTerm started");
     var elementName = 'coverage_term';
     if(!obj.hasOwnProperty('Coverage Term')){
-      console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
     }
     var value = obj['Coverage Term'];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setCoverageTerm ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function getDesiredCoverageAmtOnCoverageTerms(obj){
+const desiredCoverageAmtOnCoverageTerms = async function(obj){
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("getDesiredCoverageAmtOnCoverageTerms started");
     if(!obj.hasOwnProperty('Coverage Term')){
-      console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
     }
     let coverageTermYear = obj['Coverage Term'];
     console.log("getDesiredCoverageAmtOnCoverageTerms ended");
@@ -404,25 +392,25 @@ function getDesiredCoverageAmtOnCoverageTerms(obj){
   });
 }
 
-function setDesiredCoverageAmt(obj) {
+const desiredCoverageAmt = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDesiredCoverageAmt started");
     var elementName = 'desired_coverage_amount';
-    var value = getDesiredCoverageAmtOnCoverageTerms(obj);
+    var value = desiredCoverageAmtOnCoverageTerms(obj);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredCoverageAmt ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function getDesiredDeductibleOnCoverageTerms(obj){
+const desiredDeductibleOnCoverageTerms = async function(obj){
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("getDesiredDeductibleOnCoverageTerms started");
     if(!obj.hasOwnProperty('Coverage Term')){
-      console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
     }
     let coverageTermYear = obj['Coverage Term'];
     
@@ -434,25 +422,25 @@ function getDesiredDeductibleOnCoverageTerms(obj){
   });
 }
 
-function setDesiredDeductible(obj) {
+const desiredDeductible = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDesiredDeductible started");
     var elementName = 'desired_deductible';
-    var value = getDesiredDeductibleOnCoverageTerms(obj);
+    var value = desiredDeductibleOnCoverageTerms(obj);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredDeductible ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function getDesiredLiabilityOnCoverageTerms(obj){
+const desiredLiabilityOnCoverageTerms = async function(obj){
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("getDesiredLiabilityOnCoverageTerms started");
     if(!obj.hasOwnProperty('Coverage Term')){
-      console.log('Insurance info not contain property Type(XLS name - Coverage Term)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
     }
     let coverageTermYear = obj['Coverage Term'];
     console.log("getDesiredLiabilityOnCoverageTerms ended");
@@ -465,259 +453,275 @@ function getDesiredLiabilityOnCoverageTerms(obj){
   });
 }
 
-function setDesiredLiabilityCoverage(obj) {
+const desiredLiabilityCoverage = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDesiredLiabilityCoverage started");
     var elementName = 'desired_liability_coverage';
-    var value = getDesiredLiabilityOnCoverageTerms(obj);
+    var value = desiredLiabilityOnCoverageTerms(obj);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredLiabilityCoverage ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setInsuranceType(obj) {
+var insurancType = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setInsuranceType started");
     var elementName = 'is_insured';
     if(!obj.hasOwnProperty('Insurance Company')){
-      console.log('Insurance info not contain property Type(XLS name - Insurance Company)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Insurance Company)');
     }
     
     var value = obj['Insurance Company'];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setInsuranceType ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setCreditRating(commentsArrObj) {
+var creditRating = async function(commentsArrObj) {
   let creditRatingIndex = 5;
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setCreditRating started");
     var elementName = 'credit_rating';
     if(!(commentsArrObj[creditRatingIndex] && commentsArrObj.length <= creditRatingIndex )){
-      console.log('Insurance info not contain property Type(garage)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - credit Rating)');
     }
     var value = commentsArrObj[creditRatingIndex];
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setCreditRating ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
 //radio buttons type="radio"
-function setClaimsThreeYrs(obj) {
+const claimThreeYear = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setClaimsThreeYrs started");
     var elementName = 'is_claim_3_years';
     var value = 0;
     var elements = getElementsByName('is_claim_3_years');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setClaimsThreeYrs ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setTitle(obj) {
+const Title = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setTitle started");
     var elementName = 'title';
     if(!obj.hasOwnProperty('Title')){
-      console.log('Insurance info not contain property Type(garage)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Title)');
     }
     var value = removeSpecialCharacter(obj['Title'], '');
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
     console.log("setTitle ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setBloodGroup(commentsArrObj) {
+const bloodGroup = async function(commentsArrObj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setBloodGroup started");
     let bloodGroupIndex = 6;
     var elementName = 'blood_group';
-    if(!(commentsArrObj[bloodGroupIndex] && commentsArrObj.length <= bloodGroupIndex )){
-      console.log('Insurance info not contain property Type(bloodGroup)');
-      return;
+    if(commentsArrObj.length >= bloodGroupIndex &&(!commentsArrObj[bloodGroupIndex])){
+      return Promise.reject('Insurance info not contain property Type(XLS name - bloodGroup)');
     }
     var value = removeSpecialCharacter(commentsArrObj[bloodGroupIndex], '');
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
     console.log("setBloodGroup ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setFirstName(obj) {
+const firstName = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setFirstName started");
     var elementName = 'first_name';
     if(!obj.hasOwnProperty('First Name')){
-      console.log('Insurance info not contain property Type(First Name)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - First Name)');
     }
     var value = removeSpecialCharacter(obj['First Name'], '');
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
     console.log("setFirstName ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setAddress(obj) {
+const address = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setAddress started");
     var elementName = 'address';
     if(!(obj.hasOwnProperty('Address') && obj.hasOwnProperty('City') && obj.hasOwnProperty('State'))){
-      console.log('Insurance info not contain property Type(setAddress)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - address)');
     }
     let address = removeSpecialCharacter(obj['Address'], '');
     let city = removeSpecialCharacter(obj['City'], '');
     let state = removeSpecialCharacter(obj['State'], '');
     var value = address.concat(', ',city, ', ',state);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setAddress ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setLastName(obj) {
+const lastName = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setLastName started");
     var elementName = 'last_name';
     if(!(obj.hasOwnProperty('Last Name'))){
-      console.log('Insurance info not contain property Type(Last Name)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Last Name)');
     }
     var value = removeSpecialCharacter(obj['Last Name'], ' ');
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
     console.log("setLastName ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setZipCode(obj) {
+const zipCode = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setZipCode started");
     var elementName = 'zip_code';
     if(!(obj.hasOwnProperty('Zipcode'))){
-      console.log('Insurance info not contain property Type(Zipcode)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - zipcode)');
     }
-    var value = obj['Zipcode'];
+    var value = obj['Zipcode'].toString();
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setZipCode ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
-function setGender(obj) {
+const gender = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setGender started");
     var elementName = 'gender';
     if(!(obj.hasOwnProperty('Gender'))){
-      console.log('Insurance info not contain property Type(Gender)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Gender)');
     }
     var value = obj['Gender'];
     var elements = getElementsByName('gender');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setGender ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setPhone(obj) {
+const phone = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setPhone started");
     var elementName = 'phone';
     if(!(obj.hasOwnProperty('Phone No'))){
-      console.log('Insurance info not contain property Type(Phone No)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Phone No)');
     }
-    var value = returnString(obj['Phone No']);
+    var value = obj['Phone No'].toString();
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setPhone ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setEmailId(obj) {
+const emailId = async function(obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setEmailId started");
     var elementName = 'emailid';
     if(!(obj.hasOwnProperty('Email'))){
-      console.log('Insurance info not contain property Type(Email)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Email)');
     }
     var value = returnString(obj['Email']);
     var elements = getElement('form-control');
-    setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setEmailId ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setDOBDay(elements , obj) {
+const DOBDay = async function(elements , obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDOBDay started");
     var elementName = 'day';
     if(!(obj.hasOwnProperty('Date_1'))){
-      console.log('Insurance info not contain property Type(Dob Date)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - DOB day/ day)');
     }
     var dayValue = obj['Date_1'];
-    setMatchedElementValuePromise(elements, elementName ,dayValue);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,dayValue);
     console.log("setDOBDay ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setDOBMonth(elements , obj) {
+const DOBMonth = async function(elements , obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDOBMonth started");
     var elementName = 'month';
     if(!(obj.hasOwnProperty('Month'))){
-      console.log('Insurance info not contain property Type(Month)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Month)');
     }
     var monthValue = obj['Month'];
-    setMatchedElementValuePromise(elements, elementName ,monthValue);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,monthValue);
     console.log("setBathrooms ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setDOBYear(elements , obj) {
+const DOBYear = async function(elements , obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setDOBYear started");
     var elementName = 'year';
     if(!(obj.hasOwnProperty('Year'))){
-      console.log('Insurance info not contain property Type(Year)');
-      return;
+      return Promise.reject('Insurance info not contain property Type(XLS name - Year)');
     }
     var yearValue = obj['Year'];
-    setMatchedElementValuePromise(elements, elementName ,yearValue);
+    let elementValueSet = setMatchedElementValuePromise(elements, elementName ,yearValue);
     console.log("setDOBYear ended");
+    return Promise.resolve(elementValueSet);
+
   });
 }
 
-function setAgeOnDOB(elements , obj) {
+const AgeOnDOB = async function(elements , obj) {
   let time = getSleepTime();
   sleep(time).then(() => {
     console.log("setAgeOnDOB started");
@@ -726,18 +730,22 @@ function setAgeOnDOB(elements , obj) {
     var ageDifMs = Date.now() - birthDate.getTime();
      var ageDate = new Date(ageDifMs); // miliseconds from epoch
      var age = Math.abs(ageDate.getUTCFullYear() - 1970);
-     setMatchedElementValuePromise(elements, elementName ,age);
+     let elementValueSet = setMatchedElementValuePromise(elements, elementName ,age);
     console.log("setAgeOnDOB ended");
+    return Promise.resolve(elementValueSet);
   });
 }
 
 
-function setDateOfBirth(obj) {
+const DateOfBirth = async function(obj) {
    var elements = getElement('form-control');
-   setDOBDay(elements, obj);
-   setDOBMonth(elements, obj);
-   setDOBYear(elements, obj);
-   setAgeOnDOB(elements, obj);
+   DOBDay(elements, obj)
+   .then(DOBMonth(elements, obj))
+   .then(DOBYear(elements, obj))
+   .then(AgeOnDOB(elements, obj))
+   .catch(function(error) {
+    console.log(error.message)
+  })
 }
 
 function fillInsuranceForms(insuranceInfos){
@@ -763,95 +771,76 @@ function main(insuranceInfo) {
 }
 
 
-function fillInsuranceForm(insuranceInfo){
+async function fillInsuranceForm(insuranceInfo){
   var waitTime = 15000;
   if(insuranceInfo.hasOwnProperty('Comments')){
     commentsArr = insuranceInfo['Comments'].split('|');
   }
-
   
-  var promiseObj = Promise.resolve()
-      .then (function(){
-        setPropertyType(commentsArr);
-      })
-      .then (function(){
-        setYearBuild(insuranceInfo);
-      })
-      .then (function(){
-        setSquareFoot(insuranceInfo ,commentsArr);
-      })
-      .then (function(){
-        setIsOwned(insuranceInfo);
-      })
-      .then (function(){
-        setAgeOfRoof(insuranceInfo);
-      })
-      .then (function(){
-        setStories(insuranceInfo);    
-      })
-      .then (function(){
-        setBedrooms(insuranceInfo); 
-      })
-      .then (function(){
-        setBathrooms(insuranceInfo);
-      })
-      .then (function(){
-        setGarage(commentsArr);
-      })
-      .then (function(){
-        setAdditionalCoverage(insuranceInfo);
-      })
-      .then (function(){
-        setCoverageTerm(insuranceInfo);
-      })
-      .then (function(){
-        setDesiredCoverageAmt(insuranceInfo);
-      })
-      .then (function(){
-        setDesiredDeductible(insuranceInfo);
-      })
-      .then (function(){
-        setDesiredLiabilityCoverage(insuranceInfo);
-      })
-      .then (function(){
-        setInsuranceType(insuranceInfo);
-      })
-      .then (function(){
-        setCreditRating(commentsArr);
-      })
-      .then (function(){
-        setClaimsThreeYrs(insuranceInfo);        
-      })
-      .then (function(){
-        setTitle(insuranceInfo);
-      })
-      .then (function(){
-        setBloodGroup(commentsArr);
-      })
-      .then (function(){
-        setFirstName(insuranceInfo);
-      })
-      .then (function(){
-        setAddress(insuranceInfo);
-      })
-      .then (function(){
-        setLastName(insuranceInfo);
-      })
-      .then (function(){
-        setZipCode(insuranceInfo);
-      })
-      .then (function(){
-        setGender(insuranceInfo);
-      })
-      .then (function(){
-        setPhone(insuranceInfo);
-      })
-      .then (function(){
-        setEmailId(insuranceInfo);
-      })
-      .then (function(){
-        setDateOfBirth(insuranceInfo);
-      })
+  let type = await propertyType(insuranceInfo);
+  let yrBuild = await yearBuild(insuranceInfo);
+  let sqfoot = await squareFoot(insuranceInfo, commentsArr);
+  let owned = await isOwned(insuranceInfo);
+  let ageRoof = await ageOfRoof(insuranceInfo);
+  /*
+    .then(stories(insuranceInfo))
+    .then(bedrooms(insuranceInfo))
+    .then(Bathroom(insuranceInfo))
+    .then(garage(insuranceInfo))
+    .then(additionalCoverage(insuranceInfo))
+    .then(coverageTerm(insuranceInfo))
+    .then(desiredCoverageAmt(insuranceInfo))
+    .then(desiredDeductible(insuranceInfo))
+    .then(desiredLiabilityCoverage(insuranceInfo))
+    .then(insurancType(insuranceInfo))
+    .then(creditRating(insuranceInfo))
+    .then(claimThreeYear(insuranceInfo))
+    */
+   let title = await Title(insuranceInfo);
+   let bloodGrp = await bloodGroup(commentsArr);
+   let fName = await firstName(insuranceInfo);
+   let addr = await address(insuranceInfo);
+   let lName = await lastName(insuranceInfo);
+   let zipcd = await zipCode(insuranceInfo);
+   let gend = await gender(insuranceInfo);
+   let phn = await phone(insuranceInfo);
+   let id = await emailId(insuranceInfo);
+   let dob = await DateOfBirth(insuranceInfo);
+
+  /*
+    propertyType(insuranceInfo)
+    .then(yearBuild(insuranceInfo))
+    .then(squareFoot(insuranceInfo))
+    .then(isOwned(insuranceInfo))
+    .then(ageOfRoof(insuranceInfo))
+    .then(stories(insuranceInfo))
+    .then(bedrooms(insuranceInfo))
+    .then(Bathroom(insuranceInfo))
+    .then(garage(insuranceInfo))
+    .then(additionalCoverage(insuranceInfo))
+    .then(coverageTerm(insuranceInfo))
+    .then(desiredCoverageAmt(insuranceInfo))
+    .then(desiredDeductible(insuranceInfo))
+    .then(desiredLiabilityCoverage(insuranceInfo))
+    .then(insurancType(insuranceInfo))
+    .then(creditRating(insuranceInfo))
+    .then(claimThreeYear(insuranceInfo))
+    .then(title(insuranceInfo))
+    .then(bloodGroup(insuranceInfo))
+    .then(firstName(insuranceInfo))
+    .then(address(insuranceInfo))
+    .then(lastName(insuranceInfo))
+    .then(zipCode(insuranceInfo))
+    .then(gender(insuranceInfo))
+    .then(phone(insuranceInfo))
+    .then(emailId(insuranceInfo))
+    .then(DateOfBirth(insuranceInfo))
+    .catch(function(error) {
+      console.log(error.message)
+    });
+    */
+  
+  
 
   /*
   setPropertyType(commentsArr);
