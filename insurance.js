@@ -10,7 +10,7 @@ port.onMessage.addListener(function(msg) {
    fillInsuranceForms(msg.data);
   }
 });*/
-var sleepTime = 2000;
+var sleepTime = 1000;
 function getSleepTime(){
   //sleepTime = sleepTime+10000;
   return sleepTime;
@@ -579,7 +579,7 @@ const lastName = async function(obj) {
     }
     var value = removeSpecialCharacter(obj['Last Name'], ' ');
     var elements = getElement('form-control');
-    let elementValueSet = await (elements, elementName ,returnStringWithFirstCharUpper(value));
+    let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,returnStringWithFirstCharUpper(value));
     console.log("setLastName ended");
     return Promise.resolve(elementValueSet);
 
@@ -610,8 +610,10 @@ const gender = async function(obj) {
       return Promise.reject('Insurance info not contain property Type(XLS name - Gender)');
     }
     var value = obj['Gender'];
+    let elementVal = 'MALE' === value.toUpperCase() ? '1' : '0'; 
+    
     var elements = getElementsByName('gender');
-    let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
+    let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,elementVal);
     console.log("setGender ended");
     return Promise.resolve(elementValueSet);
 
@@ -750,12 +752,13 @@ async function fillInsuranceForm(insuranceInfo){
   if(insuranceInfo.hasOwnProperty('Comments')){
     commentsArr = insuranceInfo['Comments'].split('|');
   }
-  
+  /*
   let type = await propertyType(commentsArr);
   let yrBuild = await yearBuild(insuranceInfo);
   let sqfoot = await squareFoot(insuranceInfo, commentsArr);
   let owned = await isOwned(insuranceInfo);
   let ageRoof = await ageOfRoof(insuranceInfo);
+  */
   /*
     .then(stories(insuranceInfo))
     .then(bedrooms(insuranceInfo))

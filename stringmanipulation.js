@@ -47,10 +47,10 @@ function printSentence(domElement, sentence, speed) {
    }, speed);
  } 
 */
-var typingSpeedTime = 0;
+var typingSpeedTime = 2000;
 
 function getTypingSpeedTime(){
-   typingSpeedTime = typingSpeedTime + 6000;
+  // typingSpeedTime = typingSpeedTime + 6000;
    return typingSpeedTime;
 }
 
@@ -58,7 +58,8 @@ function getTypingSpeedTime(){
    let counter = 0;
    let element = ele;
    let text = value;
-   let speed = getTypingSpeedTime() + (text.length*1000);
+   //let speed = getTypingSpeedTime() + (text.length*1000);
+   let speed = getTypingSpeedTime();
    var message = await promiseTypeWriter(element, text, speed);
    return Promise.resolve(message);
 
@@ -99,7 +100,8 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const promiseTypeWriter = async function(element, text, speed) {
     for (let counter = 0; counter < text.length; counter++) {
-       let waitingTime = counter === 0 ? speed : 1000;
+       //let waitingTime = counter === 0 ? speed : 1000;
+       let waitingTime = speed;
         //await delay(Math.random() * 1000);
         await delay(waitingTime);
         element.value += text.charAt(counter);
