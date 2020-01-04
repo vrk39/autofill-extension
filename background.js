@@ -1,4 +1,6 @@
 var insuranceFormTabObj ;
+var formFillingCounter = 0;
+var insuranceFormJsonObj;
 //document.getElementById("fill").addEventListener("click", sendMessages);
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -88,6 +90,25 @@ chrome.runtime.onConnect.addListener(function(port) {
 	});
   });
 */
+
+const getInsuranceFormTab = async function(){
+	chrome.windows.getAll({populate:true},function(windows){
+		windows.forEach(function(window){
+			window.tabs.forEach(function(tab){
+				if(!tab){
+					alert("Alert! Insurance form not found. Please Open it and do the process again :)")
+					return;
+				}
+				//collect all of the urls here, I will just log them instead
+				if(tab.url.includes("homeinsurance.html") || tab.title.includes("homeinsurance")){
+					return tab;	
+				}
+				console.log(tab.url);
+			  });
+		});
+	});
+}
+
 function sendCommandeToFillForm(){
 	try {
 		
@@ -141,6 +162,40 @@ function sendCommandeToFillForm(){
 	} catch (error) {
 		console.log(error);
 	}
+}
+
+function sendFormDataToContentOnCounter(){
+	sleep(35000).then(() => {
+		console.log('ready to send fill form message');
+	
+		if(!insuranceFormTabObj){
+			insuranceFormTabObj = await getInsuranceFormTab();
+			if(!insuranceFormTabObj){
+				alert("Alert! Insurance form not found. Please Open it and do the process again :)")
+				return;
+			}
+		}
+
+		if(!insuranceFormJsonObj){
+			insuranceFormJsonObj = JSON.parse(getFileDataObj());
+		}
+		
+		if(insuranceFormJsonObj){
+			insruranceDataObj = insuranceFormJsonObj[formFillingCounter];
+			formFillingCounter++;
+			try {
+				sleep(5000).then(() => {
+					console.log('sending message to fill form');
+					chrome.tabs.sendMessage(insuranceFormTabObj.id, {FILL_INSURANCE_FORM : insruranceDataObj});
+				});	
+			} catch (error) {
+				console.log(error);
+			}
+			
+		}else{
+			console.log('insurance data not found from storage');
+		}
+	});	
 }
 
 

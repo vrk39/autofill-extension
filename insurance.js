@@ -87,15 +87,15 @@ async function setMatchedElementValuePromise(formElements, eleName , value){
     
 		  if(ele.name === eleName){
         //focus to look like selected
-        //ele.focus();
+        ele.focus();
         /*
         if (typeof ele.onclick == "function") {
           ele.onclick.apply(ele);
         }*/
-        ele.click();
+        //ele.click();
         /*
         var event = document.createEvent('Event');
-        event.initEvent('build', true, true);
+        event.initEvent('click', true, true);
         ele.dispatchEvent(event);
         */
         /*
@@ -107,7 +107,7 @@ async function setMatchedElementValuePromise(formElements, eleName , value){
         ele.dispatchEvent(clickEvent);
 */
 
-        await delay(3000);
+        await delay(2000);
 			  var valueSet = false;	
 			  if(ele.nodeName === 'INPUT'){
 				  
@@ -835,13 +835,11 @@ const AgeOnDOB = async function(elements , obj) {
 
 const DateOfBirth = async function(obj) {
    var elements = getElement('form-control');
-   DOBDay(elements, obj)
-   .then(DOBMonth(elements, obj))
-   .then(DOBYear(elements, obj))
-   .then(AgeOnDOB(elements, obj))
-   .catch(function(error) {
-    console.log(error.message)
-  })
+   let day = await DOBDay(elements, obj);
+   let mnth = await DOBMonth(elements, obj);
+   let yr = await DOBYear(elements, obj);
+   let ageSet = AgeOnDOB(elements, obj);
+   return Promise.resolve('dob set');
 }
 
 function fillInsuranceForms(insuranceInfos){
@@ -900,6 +898,9 @@ async function fillInsuranceForm(insuranceInfo){
    let phn = await phone(insuranceInfo);
    let id = await emailId(insuranceInfo);
    let dob = await DateOfBirth(insuranceInfo);
+
+   return Promise.resolve('form filllup is complete');
+  
 
   /*
     propertyType(insuranceInfo)
