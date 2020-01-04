@@ -107,7 +107,7 @@ async function setMatchedElementValuePromise(formElements, eleName , value){
         ele.dispatchEvent(clickEvent);
 */
 
-        await delay(2000);
+        await delay(1000);
 			  var valueSet = false;	
 			  if(ele.nodeName === 'INPUT'){
 				  
@@ -187,7 +187,30 @@ function setMatchedElementValue(formElements, eleName , value){
 	}
 }
 
-function validPropertyType(type){
+function getPropertyTypeFormValue(propType){
+  if(!propType){
+    throw new Error('property Type not found');
+  }
+  propType = propType.toUpperCase();
+  let singleFamily = 'Single family';
+  let apartment = 'Apartment';
+  let duplex = 'Duplex';
+  let condo = 'Condo';
+  let townHome = 'Townhome';
+  let mobileHome = 'Mobile home';
+  if(stringPresent(singleFamily, propType)){
+    return singleFamily;
+  }else if(stringPresent(apartment, propType)){
+    return apartment;
+  }else if(stringPresent(duplex, propType)){
+    return duplex;
+  }else if(stringPresent(condo, propType)){
+    return condo;
+  }else if(stringPresent(townHome, propType)){
+    return townHome;
+  }else if(stringPresent(mobileHome, propType)){
+    return mobileHome;
+  }
 
 }
 
@@ -202,7 +225,7 @@ const propertyType = async function(commentsArr) {
       if(!Array.isArray(commentsArr) && commentsArr.length >= properyTypeIndex && (!commentsArr[properyTypeIndex])){
         return Promise.reject('Insurance info not contain property Type(XLS name - Project)');
       }
-      var value = commentsArr[properyTypeIndex];
+      var value = getPropertyTypeFormValue(commentsArr[properyTypeIndex]);
       //validate value
       //validPropertyType(value);
       var elements = getElement('form-control');
@@ -265,8 +288,23 @@ const ageOfRoof = async function(obj) {
   
 }
 
-function validateGarage(){
-
+function validateGarageAndReturnFormValue(xlsGarageData){
+  xlsGarageData = returnString(xlsGarageData.toUpperCase());
+  let attachedCarpool = 'Attached carpool';
+  let detachedCarpool = 'Detached carpool';
+  let noGarage = 'No garage';
+  let other = 'Other';
+  if(attachedCarpool.toUpperCase() === xlsGarageData || attachedCarpool.toUpperCase().includes(xlsGarageData)){
+    return attachedCarpool;
+  }else if(detachedCarpool.toUpperCase() === xlsGarageData || detachedCarpool.toUpperCase().includes(xlsGarageData)){
+    return detachedCarpool;
+  }else if(noGarage.toUpperCase() === xlsGarageData || noGarage.toUpperCase().includes(xlsGarageData)){
+    return noGarage;
+  }else if(other.toUpperCase() === xlsGarageData || other.toUpperCase().includes(xlsGarageData)){
+    return other;
+  }else{
+    return "";
+  }
 }
 
 const garage = async function(commentsArrObj) {
@@ -278,7 +316,7 @@ const garage = async function(commentsArrObj) {
     if(!commentsArrObj[garageInfoIndex]){
       return Promise.reject('Insurance info not contain property Type(XLS name - garage)');
     }
-    var value = commentsArrObj[garageInfoIndex];
+    var value = validateGarageAndReturnFormValue(commentsArrObj[garageInfoIndex]);
     //validate value
     //validateGarage(value);
     var elements = getElement('form-control');
@@ -338,6 +376,30 @@ const squareFoot = async function(obj, commentsArrObj) {
   
 }
 
+function getStoriesFormValue(storiesData){
+  let storiesVal;
+  switch (storiesData) {
+    case 1:
+      storiesVal = '1';
+      break;
+    case 2:
+      storiesVal = '2';
+      break;
+    case 3:
+      storiesVal = '3';
+      break;
+    case 4:
+      storiesVal = '4';
+      break;
+    case 5:
+      storiesVal = '5';
+      break;
+    case 6:
+      storiesVal = '5+';
+  }
+  return storiesVal;
+}
+
 const stories = async function(obj) {
   let time = getSleepTime();
   await delay(time);
@@ -345,7 +407,7 @@ const stories = async function(obj) {
     var elementName = 'stories'
 
     //Set stories value
-    var value = 4;
+    var value = getStoriesFormValue(obj['Level']);
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setStories ended");
@@ -786,6 +848,41 @@ const DOBDay = async function(elements , obj) {
 
 }
 
+function getDOBMonthFormValue(month){
+  if(!month){
+    throw new Error('month value not present');
+  }
+  let strMonth = month.toString();
+  let jan ='01',feb = '02',march= '03', april = '04', may='05';
+  let june= '06',july = '07',august ='08',september ='09',octomber='10';
+  let november='11',december = '12';
+  if(jan.includes(month)){
+    return jan;
+  }else if(feb.includes(month)){
+    return feb;
+  }else if(march.includes(month)){
+    return march;
+  }else if(april.includes(month)){
+    return april;
+  }else if(may.includes(month)){
+    return may;
+  }else if(june.includes(month)){
+    return june;
+  }else if(july.includes(month)){
+    return july;
+  }else if(august.includes(month)){
+    return august;
+  }else if(september.includes(month)){
+    return september;
+  }else if(octomber.includes(month)){
+    return octomber;
+  }else if(november.includes(month)){
+    return november;
+  }else if(december.includes(month)){
+    return december;
+  }
+}
+
 const DOBMonth = async function(elements , obj) {
   let time = getSleepTime();
   await delay(time);
@@ -794,7 +891,7 @@ const DOBMonth = async function(elements , obj) {
     if(!(obj.hasOwnProperty('Month'))){
       return Promise.reject('Insurance info not contain property Type(XLS name - Month)');
     }
-    var monthValue = obj['Month'];
+    var monthValue = getDOBMonthFormValue(obj['Month']);
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,monthValue);
     console.log("setBathrooms ended");
     return Promise.resolve(elementValueSet);
@@ -838,7 +935,7 @@ const DateOfBirth = async function(obj) {
    let day = await DOBDay(elements, obj);
    let mnth = await DOBMonth(elements, obj);
    let yr = await DOBYear(elements, obj);
-   let ageSet = AgeOnDOB(elements, obj);
+   let ageSet = await AgeOnDOB(elements, obj);
    return Promise.resolve('dob set');
 }
 

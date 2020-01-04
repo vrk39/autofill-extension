@@ -19,6 +19,9 @@ const formFiller = async function(insuranceData){
    });
    //var event = document.createEvent('Event');
    //event.initEvent('click', true, true);
+   chrome.runtime.sendMessage({command: "GET_NEXT_FORM_DATA"}, function(response) {
+		console.log(response);
+	});
    let submitButtonElement = getElementsByName('btn_submit');
    submitButtonElement[0].click();
    return Promise.resolve('form filllup is complete');

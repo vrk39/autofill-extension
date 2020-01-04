@@ -72,6 +72,8 @@ function gotMessage(message, sender, sendResponse) {
 		  port.postMessage({data: fileData});
 	  }else if(message.command == "FILL_FORM_DATA"){
 		sendCommandeToFillForm();
+	  }else if(message.command == "GET_NEXT_FORM_DATA"){
+		sendFormDataToContentOnCounter();
 	  }
   //fillInsuranceForms(message);
 }
@@ -91,7 +93,7 @@ chrome.runtime.onConnect.addListener(function(port) {
   });
 */
 
-const getInsuranceFormTab = async function(){
+const getInsuranceFormTab = function(){
 	chrome.windows.getAll({populate:true},function(windows){
 		windows.forEach(function(window){
 			window.tabs.forEach(function(tab){
@@ -139,22 +141,20 @@ function sendCommandeToFillForm(){
 				return;
 			}
 	
-			var insuranceJson = JSON.parse(getFileDataObj());
+			insuranceFormJsonObj = JSON.parse(getFileDataObj());
 			
-			if(insuranceJson){
-		
-				for(let counter =0 ; counter < insuranceJson.length; counter++){
-					// Usage!
-					insruranceDataObj = insuranceJson[counter];
-					try {
-						sleep(5000).then(() => {
-							console.log('sending message to fill form');
-							chrome.tabs.sendMessage(insuranceFormTabObj.id, {FILL_INSURANCE_FORM : insruranceDataObj});
-						});	
-					} catch (error) {
-						console.log(error);
-					}
+			if(insuranceFormJsonObj){		
+				insruranceDataObj = insuranceFormJsonObj[formFillingCounter];
+				formFillingCounter++;
+				try {
+					sleep(5000).then(() => {
+						console.log('sending message to fill form');
+						chrome.tabs.sendMessage(insuranceFormTabObj.id, {FILL_INSURANCE_FORM : insruranceDataObj});
+					});	
+				} catch (error) {
+					console.log(error);
 				}
+				
 			}else{
 				console.log('insurance data not found from storage');
 			}
@@ -164,12 +164,12 @@ function sendCommandeToFillForm(){
 	}
 }
 
-function sendFormDataToContentOnCounter(){
+const sendFormDataToContentOnCounter = async function(){
 	sleep(35000).then(() => {
 		console.log('ready to send fill form message');
 	
 		if(!insuranceFormTabObj){
-			insuranceFormTabObj = await getInsuranceFormTab();
+			insuranceFormTabObj = getInsuranceFormTab();
 			if(!insuranceFormTabObj){
 				alert("Alert! Insurance form not found. Please Open it and do the process again :)")
 				return;

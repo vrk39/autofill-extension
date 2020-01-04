@@ -11,7 +11,14 @@ function returnStringToLower(obj) {
 
 function removeSpecialCharacter(obj, replacer){
 	var str = returnString(obj); 
-	return str.replace(/[^a-zA-Z ]/g, replacer);
+	return str.replace(/[^a-zA-Z0-9 ]/g, replacer);
+}
+
+function stringPresent(baseStr, matcher){
+  if(!(baseStr || matcher)){
+    return false;
+  }
+  return (baseStr.toUpperCase() === matcher.toUpperCase() || baseStr.toUpperCase().includes(matcher.toUpperCase()))
 }
 
 function returnStringWithFirstCharUpper(obj) {
@@ -47,7 +54,7 @@ function printSentence(domElement, sentence, speed) {
    }, speed);
  } 
 */
-var typingSpeedTime = 2000;
+var typingSpeedTime = 500;
 
 function getTypingSpeedTime(){
   // typingSpeedTime = typingSpeedTime + 6000;
