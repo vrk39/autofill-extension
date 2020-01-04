@@ -5,6 +5,43 @@ document.addEventListener('DOMContentLoaded', function() {
 	//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 });
 
+function requestHandler(req){
+	console.log(req);
+}
+  
+chrome.webRequest.onBeforeSendHeaders.addListener(requestHandler, {urls: ["<all_urls>"]}, ["requestHeaders"]);
+chrome.webRequest.onBeforeRequest.addListener(requestHandler,{urls: ["<all_urls>"]},['requestBody']);
+chrome.webRequest.onCompleted.addListener(requestHandler,{urls: ["<all_urls>"]});
+/*
+var log4js = require('log4js'); // include log4js
+
+log4js.configure({ // configure to use all types in different files.
+    appenders: [
+        {   type: 'file',
+            filename: "/logs/error.log", // specify the path where u want logs folder error.log
+            category: 'error',
+            maxLogSize: 20480,
+            backups: 10
+        },
+        {   type: "file",
+            filename: "/logs/info.log", // specify the path where u want logs folder info.log
+            category: 'info',
+            maxLogSize: 20480,
+            backups: 10
+        },
+        {   type: 'file',
+            filename: "/logs/debug.log", // specify the path where u want logs folder debug.log
+            category: 'debug',
+            maxLogSize: 20480,
+            backups: 10
+        }
+    ]
+});
+
+var loggerinfo = log4js.getLogger('info'); // initialize the var to use.
+var loggererror = log4js.getLogger('error'); // initialize the var to use.
+var loggerdebug = log4js.getLogger('debug'); // initialize the var to use.
+*/
 function sleep(ms) {
 	if(!ms){
 	  ms = 3000;

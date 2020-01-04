@@ -87,7 +87,26 @@ async function setMatchedElementValuePromise(formElements, eleName , value){
     
 		  if(ele.name === eleName){
         //focus to look like selected
-        ele.focus();
+        //ele.focus();
+        /*
+        if (typeof ele.onclick == "function") {
+          ele.onclick.apply(ele);
+        }*/
+        ele.click();
+        /*
+        var event = document.createEvent('Event');
+        event.initEvent('build', true, true);
+        ele.dispatchEvent(event);
+        */
+        /*
+        var clickEvent = new MouseEvent("click", {
+          "view": window,
+          "bubbles": true,
+          "cancelable": false
+        });
+        ele.dispatchEvent(clickEvent);
+*/
+
         await delay(3000);
 			  var valueSet = false;	
 			  if(ele.nodeName === 'INPUT'){
@@ -180,7 +199,7 @@ const propertyType = async function(commentsArr) {
       console.log("setPropertyType started");
       let properyTypeIndex = 1;
       let elementName = 'property_type';
-      if(!(Array.isArray(commentsArr) && commentsArr.length >= properyTypeIndex && commentsArr[properyTypeIndex])){
+      if(!Array.isArray(commentsArr) && commentsArr.length >= properyTypeIndex && (!commentsArr[properyTypeIndex])){
         return Promise.reject('Insurance info not contain property Type(XLS name - Project)');
       }
       var value = commentsArr[properyTypeIndex];
@@ -273,6 +292,31 @@ function validateSqFoot(arrayValue , objUserEnteredValue){
 
 }
 
+function getSqFootValue(level){
+  let levelVal = level.toString();
+  let sqFoot ;
+  switch (levelVal) {
+    case '1':
+      sqFoot = '1000';
+      break;
+    case '2':
+      sqFoot = '1500';
+      break;
+    case '3':
+      sqFoot = '2500';
+      break;
+    case '4':
+      sqFoot = '3500';
+      break;
+    case '5':
+      sqFoot = '4500';
+      break;
+    case '6':
+      sqFoot = '5000';
+  }
+  return sqFoot;
+}
+
 //TODO: set square foot value
 const squareFoot = async function(obj, commentsArrObj) {
   let sqFootIndex = 4;
@@ -283,7 +327,7 @@ const squareFoot = async function(obj, commentsArrObj) {
     if(!(commentsArrObj[sqFootIndex] && commentsArrObj.length <= sqFootIndex || obj.hasOwnProperty('Level'))){
       return Promise.reject('Insurance info not contain property Type(XLS name - Level/sqFoot)');
     }
-    var value = obj['Level'];
+    var value = getSqFootValue(obj['Level'].toString());
     let arrayValue = commentsArrObj[sqFootIndex];
     //validate sqFoot
     //function validateSqFoot
@@ -309,12 +353,25 @@ const stories = async function(obj) {
   
 }
 
-const isOwned = async function(obj) {
+function getOwnedOrRentedValue(data){
+  let updateData = returnString(data.toUpperCase());
+  if('OWNED' === updateData || 'OWNER' === updateData || 'OWNED'.includes(updateData) || 'OWNER'.includes(updateData)){
+    return 'Owned';
+  }else if('TENANT' === updateData || 'OWNED'.includes(updateData)){
+    return 'Rented';
+  }
+}
+
+const isOwned = async function(commentsArrObj) {
   let time = getSleepTime();
+  let ownedIndex = 0;
   await delay(time);
     console.log("setIsOwned started");
-    var elementName = 'is_owned'
-    var value = 1; // this value will be always true : 1 , false : 0
+    var elementName = 'is_owned';
+    if(!(commentsArrObj[ownedIndex] && commentsArrObj.length >= ownedIndex)){
+      return Promise.reject('Insurance info not contain property Type(XLS name - ownede/tented)');
+    }
+    var value = getOwnedOrRentedValue(commentsArrObj[ownedIndex]); // this value will be always true : 1 , false : 0
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setIsOwned ended");
@@ -351,6 +408,31 @@ const additionalCoverage = async function(obj) {
   
 }
 
+function getcoverageTermValue(termYear){
+  let index = termYear/5;
+  let term;
+  switch (index) {
+    case 1:
+      term = '5 Years';
+      break;
+    case 2:
+      term = '10 Years';
+      break;
+    case 3:
+      term = '15 Years';
+      break;
+    case 4:
+      term = '20 Years';
+      break;
+    case 5:
+      term = '25 Years';
+      break;
+    case 6:
+      term = '30 Years';
+  }
+  return term;
+}
+
 const coverageTerm = async function(obj) {
   let time = getSleepTime();
   await delay(time);
@@ -359,7 +441,7 @@ const coverageTerm = async function(obj) {
     if(!obj.hasOwnProperty('Coverage Term')){
       return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
     }
-    var value = obj['Coverage Term'];
+    var value = getcoverageTermValue(obj['Coverage Term']);
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setCoverageTerm ended");
@@ -367,20 +449,29 @@ const coverageTerm = async function(obj) {
   
 }
 
-const desiredCoverageAmtOnCoverageTerms = async function(obj){
-  
-    console.log("getDesiredCoverageAmtOnCoverageTerms started");
-    if(!obj.hasOwnProperty('Coverage Term')){
-      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
-    }
-    let coverageTermYear = obj['Coverage Term'];
-    console.log("getDesiredCoverageAmtOnCoverageTerms ended");
-    if(coverageTermYear === 10){
-      return 300000;
-    }else{
-      return 150000;
-    }
-  
+function getcoverageAmtOnTermValue(termYear){
+  let index = termYear/5;
+  let amount;
+  switch (index) {
+    case 1:
+      amount = '150000';
+      break;
+    case 2:
+      amount = '300000';
+      break;
+    case 3:
+      amount = '500000';
+      break;
+    case 4:
+      amount = '750000';
+      break;
+    case 5:
+      amount = '1000000';
+      break;
+    case 6:
+      amount = '1500000';
+  }
+  return amount;
 }
 
 const desiredCoverageAmt = async function(obj) {
@@ -388,7 +479,11 @@ const desiredCoverageAmt = async function(obj) {
   await delay(time);
     console.log("setDesiredCoverageAmt started");
     var elementName = 'desired_coverage_amount';
-    var value = desiredCoverageAmtOnCoverageTerms(obj);
+    if(!obj.hasOwnProperty('Coverage Term')){
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
+    }
+    
+    var value = getcoverageAmtOnTermValue(obj['Coverage Term']);
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredCoverageAmt ended");
@@ -396,18 +491,29 @@ const desiredCoverageAmt = async function(obj) {
   
 }
 
-const desiredDeductibleOnCoverageTerms = async function(obj){
-    console.log("getDesiredDeductibleOnCoverageTerms started");
-    if(!obj.hasOwnProperty('Coverage Term')){
-      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
-    }
-    let coverageTermYear = obj['Coverage Term'];
-    
-    if(coverageTermYear === 10){
-      return 500;
-    }else{
-      return 250;
-    }
+function getDeductibleOnTermValue(termYear){
+  let index = termYear/5;
+  let amount;
+  switch (index) {
+    case 1:
+      amount = '250';
+      break;
+    case 2:
+      amount = '500';
+      break;
+    case 3:
+      amount = '750';
+      break;
+    case 4:
+      amount = '1,000';
+      break;
+    case 5:
+      amount = '12,50';
+      break;
+    case 6:
+      amount = '15,00';
+  }
+  return amount;
 }
 
 const desiredDeductible = async function(obj) {
@@ -415,7 +521,10 @@ const desiredDeductible = async function(obj) {
   await delay(time);
     console.log("setDesiredDeductible started");
     var elementName = 'desired_deductible';
-    var value = desiredDeductibleOnCoverageTerms(obj);
+    if(!obj.hasOwnProperty('Coverage Term')){
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
+    }
+    var value = getDeductibleOnTermValue(obj['Coverage Term']);
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredDeductible ended");
@@ -423,21 +532,29 @@ const desiredDeductible = async function(obj) {
   
 }
 
-const desiredLiabilityOnCoverageTerms = async function(obj){
-  let time = getSleepTime();
-  await delay(time);
-    console.log("getDesiredLiabilityOnCoverageTerms started");
-    if(!obj.hasOwnProperty('Coverage Term')){
-      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
-    }
-    let coverageTermYear = obj['Coverage Term'];
-    console.log("getDesiredLiabilityOnCoverageTerms ended");
-    if(coverageTermYear === 10){
-      return 100,000;
-    }else{
-      return 50,000;
-    }
-    
+function getLiabilityOnTermValue(termYear){
+  let index = termYear/5;
+  let amount;
+  switch (index) {
+    case 1:
+      amount = '50,000';
+      break;
+    case 2:
+      amount = '100,000';
+      break;
+    case 3:
+      amount = '200,000';
+      break;
+    case 4:
+      amount = '300,000';
+      break;
+    case 5:
+      amount = '500,000';
+      break;
+    case 6:
+      amount = '750,000';
+  }
+  return amount;
 }
 
 const desiredLiabilityCoverage = async function(obj) {
@@ -445,7 +562,10 @@ const desiredLiabilityCoverage = async function(obj) {
   await delay(time);
     console.log("setDesiredLiabilityCoverage started");
     var elementName = 'desired_liability_coverage';
-    var value = desiredLiabilityOnCoverageTerms(obj);
+    if(!obj.hasOwnProperty('Coverage Term')){
+      return Promise.reject('Insurance info not contain property Type(XLS name - Coverage Term)');
+    }    
+    var value = getLiabilityOnTermValue(obj['Coverage Term']);
     var elements = getElement('form-control');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setDesiredLiabilityCoverage ended");
@@ -476,7 +596,7 @@ var creditRating = async function(commentsArrObj) {
   await delay(time);
     console.log("setCreditRating started");
     var elementName = 'credit_rating';
-    if(!(commentsArrObj[creditRatingIndex] && commentsArrObj.length <= creditRatingIndex )){
+    if(!(commentsArrObj[creditRatingIndex] && commentsArrObj.length >= creditRatingIndex )){
       return Promise.reject('Insurance info not contain property Type(XLS name - credit Rating)');
     }
     var value = commentsArrObj[creditRatingIndex];
@@ -493,7 +613,7 @@ const claimThreeYear = async function(obj) {
   await delay(time);
     console.log("setClaimsThreeYrs started");
     var elementName = 'is_claim_3_years';
-    var value = 0;
+    var value = '0';
     var elements = getElementsByName('is_claim_3_years');
     let elementValueSet = await setMatchedElementValuePromise(elements, elementName ,value);
     console.log("setClaimsThreeYrs ended");
@@ -752,27 +872,24 @@ async function fillInsuranceForm(insuranceInfo){
   if(insuranceInfo.hasOwnProperty('Comments')){
     commentsArr = insuranceInfo['Comments'].split('|');
   }
-  /*
+  
   let type = await propertyType(commentsArr);
   let yrBuild = await yearBuild(insuranceInfo);
   let sqfoot = await squareFoot(insuranceInfo, commentsArr);
-  let owned = await isOwned(insuranceInfo);
+  let owned = await isOwned(commentsArr);
   let ageRoof = await ageOfRoof(insuranceInfo);
-  */
-  /*
-    .then(stories(insuranceInfo))
-    .then(bedrooms(insuranceInfo))
-    .then(Bathroom(insuranceInfo))
-    .then(garage(commentsArr))
-    .then(additionalCoverage(insuranceInfo))
-    .then(coverageTerm(insuranceInfo))
-    .then(desiredCoverageAmt(insuranceInfo))
-    .then(desiredDeductible(insuranceInfo))
-    .then(desiredLiabilityCoverage(insuranceInfo))
-    .then(insurancType(insuranceInfo))
-    .then(creditRating(commentsArr))
-    .then(claimThreeYear(insuranceInfo))
-    */
+  let storie = await stories(insuranceInfo);
+  let BedRms = await bedrooms(insuranceInfo);
+  let bathRm = await Bathroom(insuranceInfo);
+  let garag = await garage(commentsArr);
+  let addCoverage = await additionalCoverage(insuranceInfo);
+  let cvgTerm = await coverageTerm(insuranceInfo);
+  let desiredCvgAmt = await desiredCoverageAmt(insuranceInfo);
+  let desiredDeduct = await desiredDeductible(insuranceInfo);
+  let desiredLiabilityCvg = await desiredLiabilityCoverage(insuranceInfo);
+  let insurance  = await insurancType(insuranceInfo);
+  let credit = await creditRating(commentsArr);
+  let claimThrYr = await claimThreeYear(insuranceInfo);
    let title = await Title(insuranceInfo);
    let bloodGrp = await bloodGroup(commentsArr);
    let fName = await firstName(insuranceInfo);

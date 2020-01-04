@@ -6,16 +6,35 @@
    "content_scripts":[
       {
          "matches":["<all_urls>"],
-         "js":["content.js","stringmanipulation.js","insurance.js","core.js"]
+         "js":[
+            "content.js",
+            "stringmanipulation.js",
+            "insurance.js",
+            "core.js"
+         ]
       }
    ],
    "background": {
-      "scripts": ["background.js","jquery-3.1.0.min.js","stringmanipulation.js","memoryCacher.js"],
+      "scripts": [
+         "background.js",
+         "jquery-3.1.0.min.js",
+         "stringmanipulation.js",
+         "memoryCacher.js",
+         "log4js.js"
+      ],
       "persistent": true
     },
-  "permissions": ["activeTab","storage","tabs"],
+  "permissions": [
+     "activeTab",
+     "storage",
+     "tabs",
+     "webRequest",
+     "<all_urls>"
+   ],
   "web_accessible_resources": [
-   "data/*.xls","popup.html" ],
+   "data/*.xls",
+   "popup.html"
+  ],
   "browser_action":{
       "default_icon":"auto.png",
       "default_title": "fillup form"
