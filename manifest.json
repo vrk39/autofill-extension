@@ -16,11 +16,11 @@
    ],
    "background": {
       "scripts": [
-         "background.js",
          "jquery-3.1.0.min.js",
+         "debugout.js",
+         "background.js",
          "stringmanipulation.js",
-         "memoryCacher.js",
-         "log4js.js"
+         "memoryCacher.js"
       ],
       "persistent": true
     },
@@ -29,7 +29,7 @@
      "storage",
      "tabs",
      "webRequest",
-     "<all_urls>"
+     "file:///*/homeinsurance.html"
    ],
   "web_accessible_resources": [
    "data/*.xls",

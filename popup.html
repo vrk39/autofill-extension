@@ -3,6 +3,7 @@
     <head>
         <title>Insurance Form filler</title>
         <script src="jquery-3.1.0.min.js"></script>
+        <script src="debugout.js"></script>
         <script src="popup.js"></script>
         <script src="filesOperation.js"></script>
         <script src="xlsx.full.min.js"></script>
@@ -15,5 +16,37 @@
 	</div>
         <input id="fill" type="submit" value="Autofill" name="btn_autofill"/>
     </body>
+    <div>
+        <section>
+            <form>
+                <h4 class="inlineLeft noMargin marginRight weight300">Get the log at run-time or any time with these methods:</h4>
+                <input type="button" id="logDownload" value="download log" name="btn_log_download">
+                <input type="button" id="popupLogDownload" value="download popup log" name="btn_popup_log_download">
+                <input type="button" id="networkLogDownload" value="download network log" name="btn_network_log_download">
+                <input type="button" class="inlineLeft marginRight" value="get log" onClick="demoGetLog()" style="width:100px;">
+                <input type="button" class="inlineLeft marginRight" value="tail" onClick="demoTail()" style="width:100px;">
+            </form>
+        </section>
+        <section>
+            <form>
+                <h4 class="inlineLeft noMargin marginRight weight300">Also, search:</h4>
+                <input type="text" class="inlineLeft" value="" id="search" style="width:140px; margin-right:5px" placeholder="ex: subgenre">
+                <input type="button" class="inlineLeft marginRight" value="search" onClick="demoSearch()" style="width:100px;">
+
+                <h4 class="inlineLeft noMargin marginRight weight300">And slice:</h4>
+                <input type="number" class="inlineLeft" value="" step="1" id="sliceStart" style="width:80px; margin-right:5px" placeholder="line">
+                <input type="number" class="inlineLeft marginRight" value="" step="1" id="sliceNumLines" style="width:80px" placeholder="# of lines">
+                <input type="button" class="inlineLeft" value="get slice" onClick="demoGetSlice()" style="width:100px;">
+            </form>
+        </section>
+        <section class="marginBottom">
+            <div class="col full marginBottom marginTop">
+                <h4 class="weight300">Console window:</h4>
+                <div class="code-contain marginBottom lime" style="min-height:500px">
+                    <code id="codeVisualizer">// Use a method above and output will be displayed here</code>
+                </div>
+            </div>
+        </section>
+    </div>
     <div id="main"></div>
 </html>

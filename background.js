@@ -6,14 +6,33 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	//document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 });
+var netWorkLogger = new debugout();
+netWorkLogger.setFileName('network');
+/*
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    //
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});*/
+
 
 function requestHandler(req){
-	console.log(req);
+	netWorkLogger.log(req);
 }
   
-chrome.webRequest.onBeforeSendHeaders.addListener(requestHandler, {urls: ["<all_urls>"]}, ["requestHeaders"]);
-chrome.webRequest.onBeforeRequest.addListener(requestHandler,{urls: ["<all_urls>"]},['requestBody']);
-chrome.webRequest.onCompleted.addListener(requestHandler,{urls: ["<all_urls>"]});
+chrome.webRequest.onBeforeSendHeaders.addListener(requestHandler, {urls: ["file:///*/homeinsurance.html"]}, ["requestHeaders"]);
+chrome.webRequest.onBeforeRequest.addListener(requestHandler,{urls: ["file:///*/homeinsurance.html"]},['requestBody']);
+chrome.webRequest.onCompleted.addListener(requestHandler,{urls: ["file:///*/homeinsurance.html"]});
 /*
 var log4js = require('log4js'); // include log4js
 

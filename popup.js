@@ -8,27 +8,36 @@ $(function(){
 //getFileInfoAndRestoreInDom();
 document.getElementById("fill").addEventListener("click", sendFormFillupEvent);
 document.getElementById('upload').addEventListener('change', readFileDataEvent, false);
+document.getElementById("logDownload").addEventListener("click", demoDownloadLog);
+document.getElementById("popupLogDownload").addEventListener("click", downloadPopupLog);
+document.getElementById("networkLogDownload").addEventListener("click", downloadNetworkLog);
+window.localStorage.clear();
 });
+var popupLogger = new debugout();
+popupLogger.setFileName('popup');
 
 function sendFormFillupEvent(){
 	chrome.runtime.sendMessage({command: "FILL_FORM_DATA"}, function(response) {
 		console.log(response);
+		popupLogger.log(response);
 	});
 }
 
 function sendFileDataForSaving(){
 	if(!xlsjson_object){
 		console.log('Empty Json object from file');
+		popupLogger.log('Empty Json object from file');
 	}
 	
 	chrome.runtime.sendMessage({setFileData: xlsjson_object}, function(response) {
 		console.log(response);
+		popupLogger.log(response);
 	});
 }
 
 function readFileDataEvent(evt){
 	console.log('text changed');
-	
+	popupLogger.log('text changed');
 	handleFileSelect(evt);
 
 	/*
@@ -132,7 +141,7 @@ function readFileAndSaveData(){
 function getFileInfoAndRestoreInDom(){
 	//var name = getFileName();
 	var name = getFileData();
-	sleep(3000).then(console.log("AT page load getFileInfoAndRestoreInDom function retrive data " +name));
+	sleep(3000).then(popupLogger.log("AT page load getFileInfoAndRestoreInDom function retrive data " +name));
 	
 	if(name){
 		addFileNameToDom(name);
@@ -151,4 +160,54 @@ function addFileNameToDom(fileName) {
 		}
 	}
 	
+}
+
+
+function demoDownloadLog() {
+	var output = "bugout.downloadLog();";
+	popupLogger.downloadLog();
+	displayOutput(output);
+}
+
+function downloadPopupLog() {
+	var output = "bugout.downloadLog();";
+	popupLogger.downloadLogByFileName('popup');
+	displayOutput(output);
+}
+
+function downloadNetworkLog() {
+	var output = "bugout.downloadLog();";
+	popupLogger.downloadLogByFileName('network');
+	displayOutput(output);
+}
+
+function demoGetLog() {
+	var output = "bugout.getLog();\n";
+	output += popupLogger.getLog();
+	displayOutput(output);
+}
+function demoTail() {
+	var output = "bugout.tail(20);\n";
+	output += popupLogger.tail(20);
+	displayOutput(output);
+}
+function demoSearch() {
+	var term = document.getElementById('search').value;
+	var output = "bugout.search('"+term+"'');\n";
+	output += popupLogger.search(term);
+	displayOutput(output);
+}
+function demoGetSlice() {
+	var startLine = Number(document.getElementById('sliceStart').value);
+	var numLines = Number(document.getElementById('sliceNumLines').value);
+	var output = "bugout.getSlice("+startLine+", "+numLines+");\n\n";
+	output += popupLogger.getSlice(startLine, numLines);
+	displayOutput(output);
+}
+function displayOutput(output) {
+	// simulate console
+	console.log(output);
+	// format for html
+	output = output.replace(/\n/g, '<br>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+	document.getElementById('codeVisualizer').innerHTML = output;
 }
